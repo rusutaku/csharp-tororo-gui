@@ -29,6 +29,7 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(formTororo));
             this.opf = new System.Windows.Forms.OpenFileDialog();
             this.timerContinue = new System.Windows.Forms.Timer(this.components);
             this.fontDialog = new System.Windows.Forms.FontDialog();
@@ -107,7 +108,7 @@
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(332, 12);
+            this.label2.Location = new System.Drawing.Point(321, 12);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(11, 12);
             this.label2.TabIndex = 52;
@@ -117,7 +118,7 @@
             // 
             this.numericUpDownOpacity.Font = new System.Drawing.Font("Arial", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.numericUpDownOpacity.ImeMode = System.Windows.Forms.ImeMode.Disable;
-            this.numericUpDownOpacity.Location = new System.Drawing.Point(283, 3);
+            this.numericUpDownOpacity.Location = new System.Drawing.Point(272, 4);
             this.numericUpDownOpacity.Minimum = new decimal(new int[] {
             50,
             0,
@@ -125,7 +126,7 @@
             0});
             this.numericUpDownOpacity.Name = "numericUpDownOpacity";
             this.numericUpDownOpacity.Size = new System.Drawing.Size(43, 21);
-            this.numericUpDownOpacity.TabIndex = 5;
+            this.numericUpDownOpacity.TabIndex = 8;
             this.numericUpDownOpacity.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             this.toolTip.SetToolTip(this.numericUpDownOpacity, "透け透け度");
             this.numericUpDownOpacity.Value = new decimal(new int[] {
@@ -137,10 +138,10 @@
             // 
             // buttonFont
             // 
-            this.buttonFont.Location = new System.Drawing.Point(236, 3);
+            this.buttonFont.Location = new System.Drawing.Point(225, 1);
             this.buttonFont.Name = "buttonFont";
             this.buttonFont.Size = new System.Drawing.Size(15, 23);
-            this.buttonFont.TabIndex = 6;
+            this.buttonFont.TabIndex = 5;
             this.buttonFont.Text = "f";
             this.toolTip.SetToolTip(this.buttonFont, "フォントの変更");
             this.buttonFont.UseVisualStyleBackColor = true;
@@ -148,7 +149,7 @@
             // 
             // buttonReload
             // 
-            this.buttonReload.Location = new System.Drawing.Point(46, 1);
+            this.buttonReload.Location = new System.Drawing.Point(37, 1);
             this.buttonReload.Name = "buttonReload";
             this.buttonReload.Size = new System.Drawing.Size(22, 23);
             this.buttonReload.TabIndex = 2;
@@ -160,7 +161,7 @@
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(208, 12);
+            this.label1.Location = new System.Drawing.Point(199, 12);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(20, 12);
             this.label1.TabIndex = 49;
@@ -168,7 +169,7 @@
             // 
             // buttonOpen
             // 
-            this.buttonOpen.Location = new System.Drawing.Point(12, 1);
+            this.buttonOpen.Location = new System.Drawing.Point(3, 1);
             this.buttonOpen.Name = "buttonOpen";
             this.buttonOpen.Size = new System.Drawing.Size(28, 23);
             this.buttonOpen.TabIndex = 0;
@@ -202,7 +203,7 @@
             0,
             0,
             0});
-            this.numericUpDownSec.Location = new System.Drawing.Point(128, 3);
+            this.numericUpDownSec.Location = new System.Drawing.Point(119, 4);
             this.numericUpDownSec.Maximum = new decimal(new int[] {
             1192296,
             0,
@@ -228,7 +229,7 @@
             // checkTP
             // 
             this.checkTP.AutoSize = true;
-            this.checkTP.Location = new System.Drawing.Point(349, 6);
+            this.checkTP.Location = new System.Drawing.Point(338, 6);
             this.checkTP.Name = "checkTP";
             this.checkTP.Size = new System.Drawing.Size(72, 16);
             this.checkTP.TabIndex = 9;
@@ -241,10 +242,10 @@
             // 
             this.labelFontColor.BackColor = System.Drawing.Color.White;
             this.labelFontColor.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.labelFontColor.Location = new System.Drawing.Point(257, 3);
+            this.labelFontColor.Location = new System.Drawing.Point(246, 3);
             this.labelFontColor.Name = "labelFontColor";
             this.labelFontColor.Size = new System.Drawing.Size(20, 10);
-            this.labelFontColor.TabIndex = 7;
+            this.labelFontColor.TabIndex = 6;
             this.toolTip.SetToolTip(this.labelFontColor, "フォントの色");
             this.labelFontColor.Click += new System.EventHandler(this.labelFontColor_Click);
             // 
@@ -252,20 +253,20 @@
             // 
             this.labelBackColor.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(16)))), ((int)(((byte)(16)))), ((int)(((byte)(16)))));
             this.labelBackColor.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.labelBackColor.Location = new System.Drawing.Point(257, 14);
+            this.labelBackColor.Location = new System.Drawing.Point(246, 14);
             this.labelBackColor.Name = "labelBackColor";
             this.labelBackColor.Size = new System.Drawing.Size(20, 10);
-            this.labelBackColor.TabIndex = 8;
+            this.labelBackColor.TabIndex = 7;
             this.toolTip.SetToolTip(this.labelBackColor, "背景の色");
             this.labelBackColor.Click += new System.EventHandler(this.labelBackColor_Click);
             // 
             // checkBoxStop
             // 
             this.checkBoxStop.AutoSize = true;
-            this.checkBoxStop.Location = new System.Drawing.Point(74, 6);
+            this.checkBoxStop.Location = new System.Drawing.Point(65, 6);
             this.checkBoxStop.Name = "checkBoxStop";
             this.checkBoxStop.Size = new System.Drawing.Size(48, 16);
-            this.checkBoxStop.TabIndex = 53;
+            this.checkBoxStop.TabIndex = 3;
             this.checkBoxStop.Text = "停止";
             this.toolTip.SetToolTip(this.checkBoxStop, "チェックで停止");
             this.checkBoxStop.UseVisualStyleBackColor = true;
@@ -289,6 +290,7 @@
             this.Controls.Add(this.buttonReload);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.textBoxOut);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "formTororo";
             this.StartPosition = System.Windows.Forms.FormStartPosition.Manual;
             this.TopMost = true;
