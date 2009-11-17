@@ -16,11 +16,15 @@ namespace tororo_gui
     public partial class formTororo : Form
     {
         const string application_name = "tororo";
-        const string prefix_version   = "β";
-        string       gui_version      = Application.ProductVersion.ToString();
-        string       core_version;
+        const string prefix_version = "β";
+        string gui_version = Application.ProductVersion.ToString();
+        string core_version;
 
         string logpath = "";
+
+        Point fullmode_point;
+        Size  fullmode_size;
+        bool hold_fullmode = false;
 
         IronRubyScriptEngine ire;
 
@@ -28,9 +32,9 @@ namespace tororo_gui
         {
             InitializeComponent();
             ire = new IronRubyScriptEngine();
-            this.Top = Properties.Settings.Default.Top;
-            this.Left = Properties.Settings.Default.Left;
-            this.Width = Properties.Settings.Default.Width;
+            this.Top    = Properties.Settings.Default.Top;
+            this.Left   = Properties.Settings.Default.Left;
+            this.Width  = Properties.Settings.Default.Width;
             this.Height = Properties.Settings.Default.Height;
             textBoxOut.Font = fontDialog.Font
                 = Properties.Settings.Default.Font;
@@ -40,14 +44,14 @@ namespace tororo_gui
                 = Properties.Settings.Default.BackColor;
             opf.InitialDirectory = Properties.Settings.Default.Dir;
             this.Text = create_version_string(
-                application_name, prefix_version, "" , gui_version
+                application_name, prefix_version, "", gui_version
                 );
         }
 
         private void load_log(string path)
         {
-            if (File.Exists(path))
-            {
+            if (File.Exists(path)) {
+                this.Cursor = Cursors.WaitCursor;
                 start();
                 convert_log(path);
                 logpath = path;
@@ -56,7 +60,7 @@ namespace tororo_gui
                 this.Text = create_version_string(
                 application_name, prefix_version, core_version, gui_version
                 ) + " - " + Path.GetFileName(path);
-                //tabControl.TabPages[0].Text = Path.GetFileNameWithoutExtension(path);
+                this.Cursor = Cursors.Default;
             }
         }
 
@@ -74,10 +78,11 @@ namespace tororo_gui
 
         private void buttonOpen_Click(object sender, EventArgs e)
         {
-            if (opf.ShowDialog() == DialogResult.OK)
-            {
+            hold_fullmode = true;
+            if (opf.ShowDialog() == DialogResult.OK) {
                 load_log(opf.FileName);
             }
+            hold_fullmode = false;
         }
 
         private void formTororoTest_DragDrop(object sender, DragEventArgs e)
@@ -88,15 +93,12 @@ namespace tororo_gui
 
         private void formTororoTest_DragEnter(object sender, DragEventArgs e)
         {
-            if (e.Data.GetDataPresent(DataFormats.FileDrop))
-            {
+            if (e.Data.GetDataPresent(DataFormats.FileDrop)) {
                 // ドラッグ中のファイルやディレクトリの取得
                 string[] drags = (string[])e.Data.GetData(DataFormats.FileDrop);
 
-                foreach (string d in drags)
-                {
-                    if (!System.IO.File.Exists(d))
-                    {
+                foreach (string d in drags) {
+                    if (!System.IO.File.Exists(d)) {
                         // ファイル以外であればイベント・ハンドラを抜ける
                         return;
                     }
@@ -120,18 +122,15 @@ namespace tororo_gui
             string str;
 
             str = result.ToString();
-            if (((IronRuby.Builtins.MutableString)(result)).Encoding.Name == "ASCII-8BIT")
-            {
+            if (((IronRuby.Builtins.MutableString)(result)).Encoding.Name == "ASCII-8BIT") {
                 str = reviveCode(str); // 修復する
             }
             return str;
         }
         private void convert_log(string filepath)
         {
-            this.Cursor = Cursors.WaitCursor;
             string str = do_convert("conv_from_log('" + filepath + "')");
             textBoxOut.Text = str;
-            this.Cursor = Cursors.Default;
         }
 
         // 文字化けを直す
@@ -143,8 +142,7 @@ namespace tororo_gui
             r = new byte[b.Length / 2]; // UTF8のバイト配列
             int j = 0;
             // 0x00 のバイトを削って詰める（奇数バイト）
-            for (int i = 0; i < b.Length; i += 2)
-            {
+            for (int i = 0; i < b.Length; i += 2) {
                 r[j++] = b[i];
             }
             // 正しい UTF8 のバイト配列を得たが，textBox が扱えるのは UTF16
@@ -163,16 +161,15 @@ namespace tororo_gui
         private void timerContinue_Tick(object sender, EventArgs e)
         {
             if ((logpath == "") || (ire == null)) return;
-            this.Cursor = Cursors.WaitCursor;
+            // this.Cursor = Cursors.WaitCursor;
             string str = do_convert("conv_continue");
             textBoxOut.Text += str;
-            this.Cursor = Cursors.Default;
+            // this.Cursor = Cursors.Default;
         }
 
         private void numericUpDownSec_ValueChanged(object sender, EventArgs e)
         {
-            if (numericUpDownSec.Value == 0)
-            {
+            if (numericUpDownSec.Value == 0) {
                 timerContinue.Enabled = false;
             } else {
                 timerContinue.Interval = (int)numericUpDownSec.Value;
@@ -187,11 +184,11 @@ namespace tororo_gui
 
         private void buttonFont_Click(object sender, EventArgs e)
         {
-            if (fontDialog.ShowDialog() == DialogResult.OK)
-            {
+            hold_fullmode = true;
+            if (fontDialog.ShowDialog() == DialogResult.OK) {
                 textBoxOut.Font = fontDialog.Font;
             }
-
+            hold_fullmode = false;
         }
 
         private void fontDialog_Apply(object sender, EventArgs e)
@@ -201,15 +198,12 @@ namespace tororo_gui
 
         private void formTororo_FormClosed(object sender, FormClosedEventArgs e)
         {
-            if (this.WindowState == FormWindowState.Normal)
-            {
+            if (this.WindowState == FormWindowState.Normal) {
                 Properties.Settings.Default.Top = this.Top;
                 Properties.Settings.Default.Left = this.Left;
                 Properties.Settings.Default.Width = this.Width;
                 Properties.Settings.Default.Height = this.Height;
-            }
-            else
-            {
+            } else {
                 Properties.Settings.Default.Top = this.RestoreBounds.Top;
                 Properties.Settings.Default.Left = this.RestoreBounds.Left;
                 Properties.Settings.Default.Width = this.RestoreBounds.Width;
@@ -218,8 +212,7 @@ namespace tororo_gui
             Properties.Settings.Default.Font = textBoxOut.Font;
             Properties.Settings.Default.FontColor = textBoxOut.ForeColor;
             Properties.Settings.Default.BackColor = textBoxOut.BackColor;
-            if (logpath != "")
-            {
+            if (logpath != "") {
                 Properties.Settings.Default.Dir = Path.GetDirectoryName(logpath);
             }
             Properties.Settings.Default.Save();
@@ -228,8 +221,7 @@ namespace tororo_gui
         private void labelFontColor_Click(object sender, EventArgs e)
         {
             colorDialog.Color = labelFontColor.BackColor;
-            if (colorDialog.ShowDialog() == DialogResult.OK)
-            {
+            if (colorDialog.ShowDialog() == DialogResult.OK) {
                 textBoxOut.ForeColor = colorDialog.Color;
                 labelFontColor.BackColor = colorDialog.Color;
             }
@@ -238,8 +230,7 @@ namespace tororo_gui
         private void labelBackColor_Click(object sender, EventArgs e)
         {
             colorDialog.Color = labelBackColor.BackColor;
-            if (colorDialog.ShowDialog() == DialogResult.OK)
-            {
+            if (colorDialog.ShowDialog() == DialogResult.OK) {
                 checkTP.Checked = false;
                 textBoxOut.BackColor = colorDialog.Color;
                 labelBackColor.BackColor = colorDialog.Color;
@@ -248,20 +239,16 @@ namespace tororo_gui
 
         private void checkTP_CheckedChanged(object sender, EventArgs e)
         {
-            if (checkTP.Checked)
-            {
+            if (checkTP.Checked) {
                 this.TransparencyKey = textBoxOut.BackColor;
-            }
-            else
-            {
+            } else {
                 this.TransparencyKey = new Color();
             }
         }
 
         private void checkBoxStop_CheckedChanged(object sender, EventArgs e)
         {
-            if (ire == null)
-            {
+            if (ire == null) {
                 checkBoxStop.CheckState = CheckState.Unchecked;
             }
             timerContinue.Enabled = !checkBoxStop.Checked;
@@ -270,23 +257,60 @@ namespace tororo_gui
         private string create_version_string(string app_name, params string[] versions)
         {
             string prefix = versions[0];
-            string core   = versions[1];
-            string gui    = versions[2];
+            string core = versions[1];
+            string gui = versions[2];
             string output = app_name;
 
-            if (prefix  != "")
-            {
+            if (prefix != "") {
                 output += " " + prefix;
             }
-            if (core != "")
-            {
+            if (core != "") {
                 output += " c:" + core;
             }
-            if (gui != "")
-            {
+            if (gui != "") {
                 output += " g:" + gui;
             }
             return output;
+        }
+
+        private void formTororo_Activated(object sender, EventArgs e)
+        {
+            set_gui_mode(true);
+        }
+
+        private void formTororo_Deactivate(object sender, EventArgs e)
+        {
+            set_gui_mode(false);
+        }
+
+        private void set_gui_mode(bool full)
+        {
+            if (this.WindowState.Equals(FormWindowState.Minimized) || hold_fullmode) return;
+            this.SuspendLayout();
+            Point minimode_point = PointToScreen(textBoxOut.Bounds.Location);
+            switch (this.FormBorderStyle) {
+                case FormBorderStyle.None:
+                    
+                    break;
+                case FormBorderStyle.Sizable:
+                    fullmode_point = this.Location;
+                    fullmode_size  = this.ClientSize;
+                    break;
+            }
+
+            if (full) {
+                this.FormBorderStyle = FormBorderStyle.Sizable;
+                this.Location = fullmode_point;
+                this.ClientSize = fullmode_size;
+                textBoxOut.Top  = panelFunctions.Height;
+                textBoxOut.Left = panelFunctions.Left;
+            } else {
+                this.FormBorderStyle = FormBorderStyle.None;
+                this.Location = minimode_point;
+                this.ClientSize = textBoxOut.Size;
+                textBoxOut.Location = panelFunctions.Location;
+            }
+            this.ResumeLayout();
         }
     }
 }
