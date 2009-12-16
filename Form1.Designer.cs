@@ -46,14 +46,15 @@
             this.labelFontColor = new System.Windows.Forms.Label();
             this.checkTP = new System.Windows.Forms.CheckBox();
             this.buttonOpen = new System.Windows.Forms.Button();
-            this.numericUpDownSec = new System.Windows.Forms.NumericUpDown();
+            this.numericUpDownInterval = new System.Windows.Forms.NumericUpDown();
             this.numericUpDownOpacity = new System.Windows.Forms.NumericUpDown();
             this.buttonFont = new System.Windows.Forms.Button();
             this.buttonReload = new System.Windows.Forms.Button();
             this.panelFunctions = new System.Windows.Forms.Panel();
+            this.buttonLoadRecentLog = new System.Windows.Forms.Button();
             this.label2 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownSec)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownInterval)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownOpacity)).BeginInit();
             this.panelFunctions.SuspendLayout();
             this.SuspendLayout();
@@ -127,11 +128,11 @@
             // checkBoxStop
             // 
             this.checkBoxStop.AutoSize = true;
-            this.checkBoxStop.Location = new System.Drawing.Point(69, 7);
+            this.checkBoxStop.Location = new System.Drawing.Point(78, 5);
             this.checkBoxStop.Name = "checkBoxStop";
-            this.checkBoxStop.Size = new System.Drawing.Size(48, 16);
+            this.checkBoxStop.Size = new System.Drawing.Size(36, 16);
             this.checkBoxStop.TabIndex = 55;
-            this.checkBoxStop.Text = "停止";
+            this.checkBoxStop.Text = "停";
             this.toolTip.SetToolTip(this.checkBoxStop, "チェックで停止");
             this.checkBoxStop.UseVisualStyleBackColor = true;
             this.checkBoxStop.CheckedChanged += new System.EventHandler(this.checkBoxStop_CheckedChanged);
@@ -140,7 +141,7 @@
             // 
             this.labelBackColor.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(16)))), ((int)(((byte)(16)))), ((int)(((byte)(16)))));
             this.labelBackColor.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.labelBackColor.Location = new System.Drawing.Point(246, 15);
+            this.labelBackColor.Location = new System.Drawing.Point(238, 15);
             this.labelBackColor.Name = "labelBackColor";
             this.labelBackColor.Size = new System.Drawing.Size(20, 10);
             this.labelBackColor.TabIndex = 59;
@@ -151,7 +152,7 @@
             // 
             this.labelFontColor.BackColor = System.Drawing.Color.White;
             this.labelFontColor.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.labelFontColor.Location = new System.Drawing.Point(246, 4);
+            this.labelFontColor.Location = new System.Drawing.Point(238, 3);
             this.labelFontColor.Name = "labelFontColor";
             this.labelFontColor.Size = new System.Drawing.Size(20, 10);
             this.labelFontColor.TabIndex = 58;
@@ -161,7 +162,7 @@
             // checkTP
             // 
             this.checkTP.AutoSize = true;
-            this.checkTP.Location = new System.Drawing.Point(338, 7);
+            this.checkTP.Location = new System.Drawing.Point(330, 6);
             this.checkTP.Name = "checkTP";
             this.checkTP.Size = new System.Drawing.Size(72, 16);
             this.checkTP.TabIndex = 61;
@@ -172,52 +173,52 @@
             // 
             // buttonOpen
             // 
-            this.buttonOpen.Location = new System.Drawing.Point(7, 3);
+            this.buttonOpen.Location = new System.Drawing.Point(3, 2);
             this.buttonOpen.Name = "buttonOpen";
-            this.buttonOpen.Size = new System.Drawing.Size(28, 23);
+            this.buttonOpen.Size = new System.Drawing.Size(24, 23);
             this.buttonOpen.TabIndex = 53;
             this.buttonOpen.Text = "...";
             this.toolTip.SetToolTip(this.buttonOpen, "ファイルを読み込む");
             this.buttonOpen.UseVisualStyleBackColor = true;
             this.buttonOpen.Click += new System.EventHandler(this.buttonOpen_Click);
             // 
-            // numericUpDownSec
+            // numericUpDownInterval
             // 
-            this.numericUpDownSec.Font = new System.Drawing.Font("Arial", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.numericUpDownSec.ImeMode = System.Windows.Forms.ImeMode.Disable;
-            this.numericUpDownSec.Increment = new decimal(new int[] {
+            this.numericUpDownInterval.Font = new System.Drawing.Font("Arial", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.numericUpDownInterval.ImeMode = System.Windows.Forms.ImeMode.Disable;
+            this.numericUpDownInterval.Increment = new decimal(new int[] {
             100,
             0,
             0,
             0});
-            this.numericUpDownSec.Location = new System.Drawing.Point(123, 5);
-            this.numericUpDownSec.Maximum = new decimal(new int[] {
+            this.numericUpDownInterval.Location = new System.Drawing.Point(120, 3);
+            this.numericUpDownInterval.Maximum = new decimal(new int[] {
             1192296,
             0,
             0,
             0});
-            this.numericUpDownSec.Minimum = new decimal(new int[] {
+            this.numericUpDownInterval.Minimum = new decimal(new int[] {
             100,
             0,
             0,
             0});
-            this.numericUpDownSec.Name = "numericUpDownSec";
-            this.numericUpDownSec.Size = new System.Drawing.Size(74, 21);
-            this.numericUpDownSec.TabIndex = 56;
-            this.numericUpDownSec.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
-            this.toolTip.SetToolTip(this.numericUpDownSec, "追加読み込みの間隔");
-            this.numericUpDownSec.Value = new decimal(new int[] {
+            this.numericUpDownInterval.Name = "numericUpDownInterval";
+            this.numericUpDownInterval.Size = new System.Drawing.Size(65, 21);
+            this.numericUpDownInterval.TabIndex = 56;
+            this.numericUpDownInterval.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            this.toolTip.SetToolTip(this.numericUpDownInterval, "追加読み込みの間隔");
+            this.numericUpDownInterval.Value = new decimal(new int[] {
             1000,
             0,
             0,
             0});
-            this.numericUpDownSec.ValueChanged += new System.EventHandler(this.numericUpDownSec_ValueChanged);
+            this.numericUpDownInterval.ValueChanged += new System.EventHandler(this.numericUpDownSec_ValueChanged);
             // 
             // numericUpDownOpacity
             // 
             this.numericUpDownOpacity.Font = new System.Drawing.Font("Arial", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.numericUpDownOpacity.ImeMode = System.Windows.Forms.ImeMode.Disable;
-            this.numericUpDownOpacity.Location = new System.Drawing.Point(272, 5);
+            this.numericUpDownOpacity.Location = new System.Drawing.Point(264, 3);
             this.numericUpDownOpacity.Minimum = new decimal(new int[] {
             50,
             0,
@@ -237,7 +238,7 @@
             // 
             // buttonFont
             // 
-            this.buttonFont.Location = new System.Drawing.Point(229, 3);
+            this.buttonFont.Location = new System.Drawing.Point(217, 3);
             this.buttonFont.Name = "buttonFont";
             this.buttonFont.Size = new System.Drawing.Size(15, 23);
             this.buttonFont.TabIndex = 57;
@@ -248,7 +249,7 @@
             // 
             // buttonReload
             // 
-            this.buttonReload.Location = new System.Drawing.Point(41, 3);
+            this.buttonReload.Location = new System.Drawing.Point(50, 2);
             this.buttonReload.Name = "buttonReload";
             this.buttonReload.Size = new System.Drawing.Size(22, 23);
             this.buttonReload.TabIndex = 54;
@@ -261,12 +262,13 @@
             // 
             this.panelFunctions.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
                         | System.Windows.Forms.AnchorStyles.Right)));
+            this.panelFunctions.Controls.Add(this.buttonLoadRecentLog);
             this.panelFunctions.Controls.Add(this.checkBoxStop);
             this.panelFunctions.Controls.Add(this.labelBackColor);
             this.panelFunctions.Controls.Add(this.labelFontColor);
             this.panelFunctions.Controls.Add(this.checkTP);
             this.panelFunctions.Controls.Add(this.buttonOpen);
-            this.panelFunctions.Controls.Add(this.numericUpDownSec);
+            this.panelFunctions.Controls.Add(this.numericUpDownInterval);
             this.panelFunctions.Controls.Add(this.label2);
             this.panelFunctions.Controls.Add(this.numericUpDownOpacity);
             this.panelFunctions.Controls.Add(this.buttonFont);
@@ -277,10 +279,21 @@
             this.panelFunctions.Size = new System.Drawing.Size(433, 28);
             this.panelFunctions.TabIndex = 53;
             // 
+            // buttonLoadRecentLog
+            // 
+            this.buttonLoadRecentLog.Location = new System.Drawing.Point(28, 2);
+            this.buttonLoadRecentLog.Name = "buttonLoadRecentLog";
+            this.buttonLoadRecentLog.Size = new System.Drawing.Size(22, 23);
+            this.buttonLoadRecentLog.TabIndex = 64;
+            this.buttonLoadRecentLog.Text = "新";
+            this.toolTip.SetToolTip(this.buttonLoadRecentLog, "一番最近に作られた LotRO のログを読み込む");
+            this.buttonLoadRecentLog.UseVisualStyleBackColor = true;
+            this.buttonLoadRecentLog.Click += new System.EventHandler(this.buttonLoadRecentLog_Click);
+            // 
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(321, 13);
+            this.label2.Location = new System.Drawing.Point(313, 11);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(11, 12);
             this.label2.TabIndex = 63;
@@ -289,7 +302,7 @@
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(203, 11);
+            this.label1.Location = new System.Drawing.Point(191, 11);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(20, 12);
             this.label1.TabIndex = 62;
@@ -313,7 +326,7 @@
             this.DragDrop += new System.Windows.Forms.DragEventHandler(this.formTororoTest_DragDrop);
             this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.formTororo_FormClosed);
             this.DragEnter += new System.Windows.Forms.DragEventHandler(this.formTororoTest_DragEnter);
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownSec)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownInterval)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownOpacity)).EndInit();
             this.panelFunctions.ResumeLayout(false);
             this.panelFunctions.PerformLayout();
@@ -341,12 +354,13 @@
         private System.Windows.Forms.Label labelFontColor;
         private System.Windows.Forms.CheckBox checkTP;
         private System.Windows.Forms.Button buttonOpen;
-        private System.Windows.Forms.NumericUpDown numericUpDownSec;
+        private System.Windows.Forms.NumericUpDown numericUpDownInterval;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.NumericUpDown numericUpDownOpacity;
         private System.Windows.Forms.Button buttonFont;
         private System.Windows.Forms.Button buttonReload;
         private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Button buttonLoadRecentLog;
     }
 }
 

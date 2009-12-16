@@ -42,6 +42,8 @@ namespace tororo_gui
                 = Properties.Settings.Default.FontColor;
             textBoxOut.BackColor = labelBackColor.BackColor
                 = Properties.Settings.Default.BackColor;
+            numericUpDownInterval.Value = Properties.Settings.Default.Interval;
+            numericUpDownOpacity.Value = Properties.Settings.Default.Opacity;
             opf.InitialDirectory = Properties.Settings.Default.Dir;
             this.Text = create_version_string(
                 application_name, prefix_version, "", gui_version
@@ -83,6 +85,14 @@ namespace tororo_gui
                 load_log(opf.FileName);
             }
             hold_fullmode = false;
+        }
+
+        private void buttonLoadRecentLog_Click(object sender, EventArgs e)
+        {
+            string recent_log_path;
+            recent_log_path = get_recent_log_path();
+            if (recent_log_path == null) return;
+            load_log(recent_log_path);
         }
 
         private void formTororoTest_DragDrop(object sender, DragEventArgs e)
@@ -169,10 +179,10 @@ namespace tororo_gui
 
         private void numericUpDownSec_ValueChanged(object sender, EventArgs e)
         {
-            if (numericUpDownSec.Value == 0) {
+            if (numericUpDownInterval.Value == 0) {
                 timerContinue.Enabled = false;
             } else {
-                timerContinue.Interval = (int)numericUpDownSec.Value;
+                timerContinue.Interval = (int)numericUpDownInterval.Value;
                 timerContinue.Enabled = true;
             }
         }
@@ -212,6 +222,8 @@ namespace tororo_gui
             Properties.Settings.Default.Font = textBoxOut.Font;
             Properties.Settings.Default.FontColor = textBoxOut.ForeColor;
             Properties.Settings.Default.BackColor = textBoxOut.BackColor;
+            Properties.Settings.Default.Interval = numericUpDownInterval.Value;
+            Properties.Settings.Default.Opacity = numericUpDownOpacity.Value;
             if (logpath != "") {
                 Properties.Settings.Default.Dir = Path.GetDirectoryName(logpath);
             }
@@ -271,6 +283,26 @@ namespace tororo_gui
                 output += " g:" + gui;
             }
             return output;
+        }
+
+        private string get_recent_log_path()
+        {
+            string recent_file_path = "";
+            string[] file_path_list;
+            DateTime recent_date = DateTime.MinValue;
+            file_path_list = System.IO.Directory.GetFiles(
+                System.Environment.GetFolderPath(Environment.SpecialFolder.Personal)
+                + @"\The Lord of the Rings Online", "*.txt");
+            if (file_path_list == null) return null;
+            foreach(string file_path in file_path_list) {
+                DateTime temp_date;
+                temp_date = System.IO.File.GetCreationTime(file_path);
+                if (temp_date > recent_date) {
+                    recent_date = temp_date;
+                    recent_file_path = file_path;
+                }
+            }
+            return recent_file_path;
         }
 
         private void formTororo_Activated(object sender, EventArgs e)
