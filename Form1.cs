@@ -335,16 +335,14 @@ namespace tororo_gui
                 this.FormBorderStyle = FormBorderStyle.Sizable;
                 this.Location = fullmode_point;
                 this.ClientSize = fullmode_size;
-                textBoxOut.ScrollBars = ScrollBars.Vertical;
-                textBoxOut.Width = this.ClientSize.Width; // スクロールバー分狭くなってるのでここで修正
+                textBoxOut.SelectionLength = 0;
                 textBoxOut.Top  = panelFunctions.Height;
                 textBoxOut.Left = panelFunctions.Left;
             } else {
                 this.FormBorderStyle = FormBorderStyle.None;
                 this.Location = minimode_point;
-                textBoxOut.ScrollBars = ScrollBars.None;
-                textBoxOut.Width -= SystemInformation.VerticalScrollBarWidth; // スクロールバーを消した分狭くする
                 this.ClientSize = textBoxOut.Size;
+                this.Width -= SystemInformation.VerticalScrollBarWidth; // スクロールバーを隠す
                 textBoxOut.Location = panelFunctions.Location;
             }
             this.ResumeLayout();
