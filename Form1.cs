@@ -317,6 +317,7 @@ namespace tororo_gui
 
         private void set_gui_mode(bool full)
         {
+
             if (this.WindowState.Equals(FormWindowState.Minimized) || hold_fullmode) return;
             this.SuspendLayout();
             Point minimode_point = PointToScreen(textBoxOut.Bounds.Location);
@@ -334,11 +335,15 @@ namespace tororo_gui
                 this.FormBorderStyle = FormBorderStyle.Sizable;
                 this.Location = fullmode_point;
                 this.ClientSize = fullmode_size;
+                textBoxOut.ScrollBars = ScrollBars.Vertical;
+                textBoxOut.Width = this.ClientSize.Width; // スクロールバー分狭くなってるのでここで修正
                 textBoxOut.Top  = panelFunctions.Height;
                 textBoxOut.Left = panelFunctions.Left;
             } else {
                 this.FormBorderStyle = FormBorderStyle.None;
                 this.Location = minimode_point;
+                textBoxOut.ScrollBars = ScrollBars.None;
+                textBoxOut.Width -= SystemInformation.VerticalScrollBarWidth; // スクロールバーを消した分狭くする
                 this.ClientSize = textBoxOut.Size;
                 textBoxOut.Location = panelFunctions.Location;
             }
