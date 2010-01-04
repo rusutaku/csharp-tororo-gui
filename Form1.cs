@@ -44,55 +44,11 @@ namespace tororo_gui
                 = Properties.Settings.Default.BackColor;
             numericUpDownInterval.Value = Properties.Settings.Default.Interval;
             numericUpDownOpacity.Value = Properties.Settings.Default.Opacity;
+            checkTP.Checked = Properties.Settings.Default.Transparent;
             opf.InitialDirectory = Properties.Settings.Default.Dir;
             this.Text = create_version_string(
                 application_name, prefix_version, "", gui_version
                 );
-        }
-
-        private void load_log(string path)
-        {
-            if (File.Exists(path)) {
-                this.Cursor = Cursors.WaitCursor;
-                start();
-                convert_log(path);
-                logpath = path;
-                toolTip.SetToolTip(buttonOpen, path);
-                Properties.Settings.Default.Dir = path;
-                this.Text = create_version_string(
-                application_name, prefix_version, core_version, gui_version
-                ) + " - " + Path.GetFileName(path);
-                this.Cursor = Cursors.Default;
-            }
-        }
-
-        private void start()
-        {
-            timerContinue.Enabled = false;
-            ire.ExecuteFile("tororo.rb");
-            ire.Invoke("t = Tororo.new");
-            core_version = ire.Invoke("t.version").ToString();
-            this.Text = create_version_string(
-                application_name, prefix_version, core_version, gui_version
-                );
-            timerContinue.Enabled = true;
-        }
-
-        private void buttonOpen_Click(object sender, EventArgs e)
-        {
-            hold_fullmode = true;
-            if (opf.ShowDialog() == DialogResult.OK) {
-                load_log(opf.FileName);
-            }
-            hold_fullmode = false;
-        }
-
-        private void buttonLoadRecentLog_Click(object sender, EventArgs e)
-        {
-            string recent_log_path;
-            recent_log_path = get_recent_log_path();
-            if (recent_log_path == null) return;
-            load_log(recent_log_path);
         }
 
         private void formTororoTest_DragDrop(object sender, DragEventArgs e)
@@ -122,6 +78,51 @@ namespace tororo_gui
             if (logpath == "") return;
             start();
             convert_log(logpath);
+        }
+        private void load_log(string path)
+        {
+            if (File.Exists(path)) {
+                this.Cursor = Cursors.WaitCursor;
+                start();
+                convert_log(path);
+                logpath = path;
+                toolTip.SetToolTip(buttonOpen, path);
+                Properties.Settings.Default.Dir = path;
+                this.Text = create_version_string(
+                application_name, prefix_version, core_version, gui_version
+                ) + " - " + Path.GetFileName(path);
+                this.Cursor = Cursors.Default;
+            }
+        }
+
+        private void start()
+        {
+            checkBoxStop.Checked = false;
+            timerContinue.Enabled = false;
+            ire.ExecuteFile("tororo.rb");
+            ire.Invoke("t = Tororo.new");
+            core_version = ire.Invoke("t.version").ToString();
+            this.Text = create_version_string(
+                application_name, prefix_version, core_version, gui_version
+                );
+            timerContinue.Enabled = true;
+        }
+
+        private void buttonOpen_Click(object sender, EventArgs e)
+        {
+            hold_fullmode = true;
+            if (opf.ShowDialog() == DialogResult.OK) {
+                load_log(opf.FileName);
+            }
+            hold_fullmode = false;
+        }
+
+        private void buttonLoadRecentLog_Click(object sender, EventArgs e)
+        {
+            string recent_log_path;
+            recent_log_path = get_recent_log_path();
+            if (recent_log_path == null) return;
+            load_log(recent_log_path);
         }
 
         private string do_convert(string command)
@@ -224,6 +225,7 @@ namespace tororo_gui
             Properties.Settings.Default.BackColor = textBoxOut.BackColor;
             Properties.Settings.Default.Interval = numericUpDownInterval.Value;
             Properties.Settings.Default.Opacity = numericUpDownOpacity.Value;
+            Properties.Settings.Default.Transparent = checkTP.Checked;
             if (logpath != "") {
                 Properties.Settings.Default.Dir = Path.GetDirectoryName(logpath);
             }
@@ -232,21 +234,25 @@ namespace tororo_gui
 
         private void labelFontColor_Click(object sender, EventArgs e)
         {
+            hold_fullmode = true;
             colorDialog.Color = labelFontColor.BackColor;
             if (colorDialog.ShowDialog() == DialogResult.OK) {
                 textBoxOut.ForeColor = colorDialog.Color;
                 labelFontColor.BackColor = colorDialog.Color;
             }
+            hold_fullmode = false;
         }
 
         private void labelBackColor_Click(object sender, EventArgs e)
         {
+            hold_fullmode = true;
             colorDialog.Color = labelBackColor.BackColor;
             if (colorDialog.ShowDialog() == DialogResult.OK) {
                 checkTP.Checked = false;
                 textBoxOut.BackColor = colorDialog.Color;
                 labelBackColor.BackColor = colorDialog.Color;
             }
+            hold_fullmode = false;
         }
 
         private void checkTP_CheckedChanged(object sender, EventArgs e)
@@ -317,7 +323,6 @@ namespace tororo_gui
 
         private void set_gui_mode(bool full)
         {
-
             if (this.WindowState.Equals(FormWindowState.Minimized) || hold_fullmode) return;
             this.SuspendLayout();
             Point minimode_point = PointToScreen(textBoxOut.Bounds.Location);

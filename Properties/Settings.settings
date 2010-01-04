@@ -32,5 +32,8 @@
     <Setting Name="Opacity" Type="System.Decimal" Scope="User">
       <Value Profile="(Default)">100</Value>
     </Setting>
+    <Setting Name="Transparent" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">False</Value>
+    </Setting>
   </Settings>
 </SettingsFile>
