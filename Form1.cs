@@ -347,7 +347,13 @@ namespace tororo_gui
                 this.FormBorderStyle = FormBorderStyle.None;
                 this.Location = minimode_point;
                 this.ClientSize = textBoxOut.Size;
-                this.Width -= SystemInformation.VerticalScrollBarWidth; // スクロールバーを隠す
+                // スクロールバーを隠す
+                // 強力透過の場合は半分だけ隠す
+                if (checkTP.Checked) {
+                    this.Width -= SystemInformation.VerticalScrollBarWidth / 2;
+                } else {
+                    this.Width -= SystemInformation.VerticalScrollBarWidth;
+                }
                 textBoxOut.Location = panelFunctions.Location;
             }
             this.ResumeLayout();

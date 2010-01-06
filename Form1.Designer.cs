@@ -50,8 +50,8 @@
             this.numericUpDownOpacity = new System.Windows.Forms.NumericUpDown();
             this.buttonFont = new System.Windows.Forms.Button();
             this.buttonReload = new System.Windows.Forms.Button();
-            this.panelFunctions = new System.Windows.Forms.Panel();
             this.buttonLoadRecentLog = new System.Windows.Forms.Button();
+            this.panelFunctions = new System.Windows.Forms.Panel();
             this.label2 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownInterval)).BeginInit();
@@ -258,6 +258,17 @@
             this.buttonReload.UseVisualStyleBackColor = true;
             this.buttonReload.Click += new System.EventHandler(this.buttonReload_Click);
             // 
+            // buttonLoadRecentLog
+            // 
+            this.buttonLoadRecentLog.Location = new System.Drawing.Point(28, 2);
+            this.buttonLoadRecentLog.Name = "buttonLoadRecentLog";
+            this.buttonLoadRecentLog.Size = new System.Drawing.Size(22, 23);
+            this.buttonLoadRecentLog.TabIndex = 64;
+            this.buttonLoadRecentLog.Text = "新";
+            this.toolTip.SetToolTip(this.buttonLoadRecentLog, "一番最近に作られた LotRO のログを読み込む");
+            this.buttonLoadRecentLog.UseVisualStyleBackColor = true;
+            this.buttonLoadRecentLog.Click += new System.EventHandler(this.buttonLoadRecentLog_Click);
+            // 
             // panelFunctions
             // 
             this.panelFunctions.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
@@ -278,17 +289,6 @@
             this.panelFunctions.Name = "panelFunctions";
             this.panelFunctions.Size = new System.Drawing.Size(433, 28);
             this.panelFunctions.TabIndex = 53;
-            // 
-            // buttonLoadRecentLog
-            // 
-            this.buttonLoadRecentLog.Location = new System.Drawing.Point(28, 2);
-            this.buttonLoadRecentLog.Name = "buttonLoadRecentLog";
-            this.buttonLoadRecentLog.Size = new System.Drawing.Size(22, 23);
-            this.buttonLoadRecentLog.TabIndex = 64;
-            this.buttonLoadRecentLog.Text = "新";
-            this.toolTip.SetToolTip(this.buttonLoadRecentLog, "一番最近に作られた LotRO のログを読み込む");
-            this.buttonLoadRecentLog.UseVisualStyleBackColor = true;
-            this.buttonLoadRecentLog.Click += new System.EventHandler(this.buttonLoadRecentLog_Click);
             // 
             // label2
             // 
