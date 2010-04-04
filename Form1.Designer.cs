@@ -41,22 +41,36 @@
             this.ContentPanel = new System.Windows.Forms.ToolStripContentPanel();
             this.textBoxOut = new System.Windows.Forms.TextBox();
             this.toolTip = new System.Windows.Forms.ToolTip(this.components);
-            this.checkBoxStop = new System.Windows.Forms.CheckBox();
             this.labelBackColor = new System.Windows.Forms.Label();
             this.labelFontColor = new System.Windows.Forms.Label();
             this.checkTP = new System.Windows.Forms.CheckBox();
-            this.buttonOpen = new System.Windows.Forms.Button();
-            this.numericUpDownInterval = new System.Windows.Forms.NumericUpDown();
-            this.numericUpDownOpacity = new System.Windows.Forms.NumericUpDown();
             this.buttonFont = new System.Windows.Forms.Button();
-            this.buttonReload = new System.Windows.Forms.Button();
-            this.buttonLoadRecentLog = new System.Windows.Forms.Button();
+            this.numericUpDownOpacity = new System.Windows.Forms.NumericUpDown();
             this.panelFunctions = new System.Windows.Forms.Panel();
+            this.toolStrip1 = new System.Windows.Forms.ToolStrip();
+            this.toolStripButtonOpen = new System.Windows.Forms.ToolStripButton();
+            this.toolStripButtonLoadRecentLog = new System.Windows.Forms.ToolStripButton();
+            this.toolStripButtonReload = new System.Windows.Forms.ToolStripButton();
+            this.toolStripButtonStop = new System.Windows.Forms.ToolStripButton();
+            this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
+            this.toolStripDropDownButton1 = new System.Windows.Forms.ToolStripDropDownButton();
+            this.toolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripMenuItem2 = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripMenuItem3 = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
+            this.toolStripMenuItem4 = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripComboBox1 = new System.Windows.Forms.ToolStripComboBox();
+            this.toolStripSeparator3 = new System.Windows.Forms.ToolStripSeparator();
+            this.toolStripMenuItem5 = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripDropDownButton2 = new System.Windows.Forms.ToolStripDropDownButton();
             this.label2 = new System.Windows.Forms.Label();
-            this.label1 = new System.Windows.Forms.Label();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownInterval)).BeginInit();
+            this.toolStripMenuItem6 = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripMenuItem7 = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripMenuItem8 = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripSeparator4 = new System.Windows.Forms.ToolStripSeparator();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownOpacity)).BeginInit();
             this.panelFunctions.SuspendLayout();
+            this.toolStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
             // opf
@@ -125,18 +139,6 @@
             this.textBoxOut.TabIndex = 1;
             this.textBoxOut.TextChanged += new System.EventHandler(this.textBoxOut_TextChanged);
             // 
-            // checkBoxStop
-            // 
-            this.checkBoxStop.AutoSize = true;
-            this.checkBoxStop.Location = new System.Drawing.Point(78, 5);
-            this.checkBoxStop.Name = "checkBoxStop";
-            this.checkBoxStop.Size = new System.Drawing.Size(36, 16);
-            this.checkBoxStop.TabIndex = 55;
-            this.checkBoxStop.Text = "停";
-            this.toolTip.SetToolTip(this.checkBoxStop, "チェックで停止");
-            this.checkBoxStop.UseVisualStyleBackColor = true;
-            this.checkBoxStop.CheckedChanged += new System.EventHandler(this.checkBoxStop_CheckedChanged);
-            // 
             // labelBackColor
             // 
             this.labelBackColor.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(16)))), ((int)(((byte)(16)))), ((int)(((byte)(16)))));
@@ -171,71 +173,6 @@
             this.checkTP.UseVisualStyleBackColor = true;
             this.checkTP.CheckedChanged += new System.EventHandler(this.checkTP_CheckedChanged);
             // 
-            // buttonOpen
-            // 
-            this.buttonOpen.Location = new System.Drawing.Point(3, 2);
-            this.buttonOpen.Name = "buttonOpen";
-            this.buttonOpen.Size = new System.Drawing.Size(24, 23);
-            this.buttonOpen.TabIndex = 53;
-            this.buttonOpen.Text = "...";
-            this.toolTip.SetToolTip(this.buttonOpen, "ファイルを読み込む");
-            this.buttonOpen.UseVisualStyleBackColor = true;
-            this.buttonOpen.Click += new System.EventHandler(this.buttonOpen_Click);
-            // 
-            // numericUpDownInterval
-            // 
-            this.numericUpDownInterval.Font = new System.Drawing.Font("Arial", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.numericUpDownInterval.ImeMode = System.Windows.Forms.ImeMode.Disable;
-            this.numericUpDownInterval.Increment = new decimal(new int[] {
-            100,
-            0,
-            0,
-            0});
-            this.numericUpDownInterval.Location = new System.Drawing.Point(120, 3);
-            this.numericUpDownInterval.Maximum = new decimal(new int[] {
-            1192296,
-            0,
-            0,
-            0});
-            this.numericUpDownInterval.Minimum = new decimal(new int[] {
-            100,
-            0,
-            0,
-            0});
-            this.numericUpDownInterval.Name = "numericUpDownInterval";
-            this.numericUpDownInterval.Size = new System.Drawing.Size(65, 21);
-            this.numericUpDownInterval.TabIndex = 56;
-            this.numericUpDownInterval.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
-            this.toolTip.SetToolTip(this.numericUpDownInterval, "追加読み込みの間隔");
-            this.numericUpDownInterval.Value = new decimal(new int[] {
-            1000,
-            0,
-            0,
-            0});
-            this.numericUpDownInterval.ValueChanged += new System.EventHandler(this.numericUpDownSec_ValueChanged);
-            // 
-            // numericUpDownOpacity
-            // 
-            this.numericUpDownOpacity.Font = new System.Drawing.Font("Arial", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.numericUpDownOpacity.ImeMode = System.Windows.Forms.ImeMode.Disable;
-            this.numericUpDownOpacity.Location = new System.Drawing.Point(264, 3);
-            this.numericUpDownOpacity.Minimum = new decimal(new int[] {
-            50,
-            0,
-            0,
-            0});
-            this.numericUpDownOpacity.Name = "numericUpDownOpacity";
-            this.numericUpDownOpacity.Size = new System.Drawing.Size(43, 21);
-            this.numericUpDownOpacity.TabIndex = 60;
-            this.numericUpDownOpacity.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
-            this.toolTip.SetToolTip(this.numericUpDownOpacity, "透け透け度");
-            this.numericUpDownOpacity.Value = new decimal(new int[] {
-            100,
-            0,
-            0,
-            0});
-            this.numericUpDownOpacity.ValueChanged += new System.EventHandler(this.numericUpDownOpacity_ValueChanged);
-            // 
             // buttonFont
             // 
             this.buttonFont.Location = new System.Drawing.Point(217, 3);
@@ -247,48 +184,185 @@
             this.buttonFont.UseVisualStyleBackColor = true;
             this.buttonFont.Click += new System.EventHandler(this.buttonFont_Click);
             // 
-            // buttonReload
+            // numericUpDownOpacity
             // 
-            this.buttonReload.Location = new System.Drawing.Point(50, 2);
-            this.buttonReload.Name = "buttonReload";
-            this.buttonReload.Size = new System.Drawing.Size(22, 23);
-            this.buttonReload.TabIndex = 54;
-            this.buttonReload.Text = "再";
-            this.toolTip.SetToolTip(this.buttonReload, "最初から読み込んで処理開始");
-            this.buttonReload.UseVisualStyleBackColor = true;
-            this.buttonReload.Click += new System.EventHandler(this.buttonReload_Click);
-            // 
-            // buttonLoadRecentLog
-            // 
-            this.buttonLoadRecentLog.Location = new System.Drawing.Point(28, 2);
-            this.buttonLoadRecentLog.Name = "buttonLoadRecentLog";
-            this.buttonLoadRecentLog.Size = new System.Drawing.Size(22, 23);
-            this.buttonLoadRecentLog.TabIndex = 64;
-            this.buttonLoadRecentLog.Text = "新";
-            this.toolTip.SetToolTip(this.buttonLoadRecentLog, "一番最近に作られた LotRO のログを読み込む");
-            this.buttonLoadRecentLog.UseVisualStyleBackColor = true;
-            this.buttonLoadRecentLog.Click += new System.EventHandler(this.buttonLoadRecentLog_Click);
+            this.numericUpDownOpacity.Font = new System.Drawing.Font("Arial", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.numericUpDownOpacity.ImeMode = System.Windows.Forms.ImeMode.Disable;
+            this.numericUpDownOpacity.Location = new System.Drawing.Point(264, 4);
+            this.numericUpDownOpacity.Minimum = new decimal(new int[] {
+            50,
+            0,
+            0,
+            0});
+            this.numericUpDownOpacity.Name = "numericUpDownOpacity";
+            this.numericUpDownOpacity.Size = new System.Drawing.Size(43, 21);
+            this.numericUpDownOpacity.TabIndex = 61;
+            this.numericUpDownOpacity.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            this.toolTip.SetToolTip(this.numericUpDownOpacity, "透け透け度");
+            this.numericUpDownOpacity.Value = new decimal(new int[] {
+            100,
+            0,
+            0,
+            0});
             // 
             // panelFunctions
             // 
             this.panelFunctions.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
                         | System.Windows.Forms.AnchorStyles.Right)));
-            this.panelFunctions.Controls.Add(this.buttonLoadRecentLog);
-            this.panelFunctions.Controls.Add(this.checkBoxStop);
+            this.panelFunctions.Controls.Add(this.toolStrip1);
+            this.panelFunctions.Controls.Add(this.numericUpDownOpacity);
             this.panelFunctions.Controls.Add(this.labelBackColor);
             this.panelFunctions.Controls.Add(this.labelFontColor);
             this.panelFunctions.Controls.Add(this.checkTP);
-            this.panelFunctions.Controls.Add(this.buttonOpen);
-            this.panelFunctions.Controls.Add(this.numericUpDownInterval);
             this.panelFunctions.Controls.Add(this.label2);
-            this.panelFunctions.Controls.Add(this.numericUpDownOpacity);
             this.panelFunctions.Controls.Add(this.buttonFont);
-            this.panelFunctions.Controls.Add(this.buttonReload);
-            this.panelFunctions.Controls.Add(this.label1);
             this.panelFunctions.Location = new System.Drawing.Point(0, 0);
             this.panelFunctions.Name = "panelFunctions";
             this.panelFunctions.Size = new System.Drawing.Size(433, 28);
             this.panelFunctions.TabIndex = 53;
+            // 
+            // toolStrip1
+            // 
+            this.toolStrip1.GripStyle = System.Windows.Forms.ToolStripGripStyle.Hidden;
+            this.toolStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.toolStripButtonOpen,
+            this.toolStripButtonLoadRecentLog,
+            this.toolStripButtonReload,
+            this.toolStripButtonStop,
+            this.toolStripSeparator1,
+            this.toolStripDropDownButton1,
+            this.toolStripDropDownButton2});
+            this.toolStrip1.Location = new System.Drawing.Point(0, 0);
+            this.toolStrip1.Name = "toolStrip1";
+            this.toolStrip1.Size = new System.Drawing.Size(433, 25);
+            this.toolStrip1.TabIndex = 65;
+            this.toolStrip1.Text = "toolStrip1";
+            // 
+            // toolStripButtonOpen
+            // 
+            this.toolStripButtonOpen.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.toolStripButtonOpen.Image = ((System.Drawing.Image)(resources.GetObject("toolStripButtonOpen.Image")));
+            this.toolStripButtonOpen.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.toolStripButtonOpen.Name = "toolStripButtonOpen";
+            this.toolStripButtonOpen.Size = new System.Drawing.Size(23, 22);
+            this.toolStripButtonOpen.Text = "toolStripButtonOpen";
+            this.toolStripButtonOpen.ToolTipText = "開く";
+            this.toolStripButtonOpen.Click += new System.EventHandler(this.toolStripButtonOpen_Click);
+            // 
+            // toolStripButtonLoadRecentLog
+            // 
+            this.toolStripButtonLoadRecentLog.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.toolStripButtonLoadRecentLog.Image = ((System.Drawing.Image)(resources.GetObject("toolStripButtonLoadRecentLog.Image")));
+            this.toolStripButtonLoadRecentLog.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.toolStripButtonLoadRecentLog.Name = "toolStripButtonLoadRecentLog";
+            this.toolStripButtonLoadRecentLog.Size = new System.Drawing.Size(23, 22);
+            this.toolStripButtonLoadRecentLog.Text = "最新の LotRO チャットログを開く";
+            this.toolStripButtonLoadRecentLog.Click += new System.EventHandler(this.toolStripButtonLoadRecentLog_Click);
+            // 
+            // toolStripButtonReload
+            // 
+            this.toolStripButtonReload.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.toolStripButtonReload.Image = ((System.Drawing.Image)(resources.GetObject("toolStripButtonReload.Image")));
+            this.toolStripButtonReload.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.toolStripButtonReload.Name = "toolStripButtonReload";
+            this.toolStripButtonReload.Size = new System.Drawing.Size(23, 22);
+            this.toolStripButtonReload.Text = "再読み込み";
+            this.toolStripButtonReload.Click += new System.EventHandler(this.toolStripButtonReload_Click);
+            // 
+            // toolStripButtonStop
+            // 
+            this.toolStripButtonStop.CheckOnClick = true;
+            this.toolStripButtonStop.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.toolStripButtonStop.Image = ((System.Drawing.Image)(resources.GetObject("toolStripButtonStop.Image")));
+            this.toolStripButtonStop.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.toolStripButtonStop.Name = "toolStripButtonStop";
+            this.toolStripButtonStop.Size = new System.Drawing.Size(23, 22);
+            this.toolStripButtonStop.Text = "停止";
+            // 
+            // toolStripSeparator1
+            // 
+            this.toolStripSeparator1.Name = "toolStripSeparator1";
+            this.toolStripSeparator1.Size = new System.Drawing.Size(6, 25);
+            // 
+            // toolStripDropDownButton1
+            // 
+            this.toolStripDropDownButton1.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.toolStripDropDownButton1.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.toolStripMenuItem1,
+            this.toolStripMenuItem2,
+            this.toolStripMenuItem3,
+            this.toolStripSeparator2,
+            this.toolStripMenuItem4,
+            this.toolStripComboBox1,
+            this.toolStripSeparator3,
+            this.toolStripMenuItem5});
+            this.toolStripDropDownButton1.Image = ((System.Drawing.Image)(resources.GetObject("toolStripDropDownButton1.Image")));
+            this.toolStripDropDownButton1.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.toolStripDropDownButton1.Name = "toolStripDropDownButton1";
+            this.toolStripDropDownButton1.Size = new System.Drawing.Size(29, 22);
+            this.toolStripDropDownButton1.Text = "toolStripDropDownButton1";
+            // 
+            // toolStripMenuItem1
+            // 
+            this.toolStripMenuItem1.Name = "toolStripMenuItem1";
+            this.toolStripMenuItem1.Size = new System.Drawing.Size(181, 22);
+            this.toolStripMenuItem1.Text = "フォント...";
+            // 
+            // toolStripMenuItem2
+            // 
+            this.toolStripMenuItem2.Name = "toolStripMenuItem2";
+            this.toolStripMenuItem2.Size = new System.Drawing.Size(181, 22);
+            this.toolStripMenuItem2.Text = "文字色...";
+            // 
+            // toolStripMenuItem3
+            // 
+            this.toolStripMenuItem3.Name = "toolStripMenuItem3";
+            this.toolStripMenuItem3.Size = new System.Drawing.Size(181, 22);
+            this.toolStripMenuItem3.Text = "背景色...";
+            // 
+            // toolStripSeparator2
+            // 
+            this.toolStripSeparator2.Name = "toolStripSeparator2";
+            this.toolStripSeparator2.Size = new System.Drawing.Size(178, 6);
+            // 
+            // toolStripMenuItem4
+            // 
+            this.toolStripMenuItem4.Enabled = false;
+            this.toolStripMenuItem4.Name = "toolStripMenuItem4";
+            this.toolStripMenuItem4.Size = new System.Drawing.Size(181, 22);
+            this.toolStripMenuItem4.Text = "不透明度";
+            // 
+            // toolStripComboBox1
+            // 
+            this.toolStripComboBox1.Name = "toolStripComboBox1";
+            this.toolStripComboBox1.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
+            this.toolStripComboBox1.Size = new System.Drawing.Size(121, 26);
+            // 
+            // toolStripSeparator3
+            // 
+            this.toolStripSeparator3.Name = "toolStripSeparator3";
+            this.toolStripSeparator3.Size = new System.Drawing.Size(178, 6);
+            // 
+            // toolStripMenuItem5
+            // 
+            this.toolStripMenuItem5.CheckOnClick = true;
+            this.toolStripMenuItem5.Name = "toolStripMenuItem5";
+            this.toolStripMenuItem5.Size = new System.Drawing.Size(181, 22);
+            this.toolStripMenuItem5.Text = "強力透過";
+            // 
+            // toolStripDropDownButton2
+            // 
+            this.toolStripDropDownButton2.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.toolStripDropDownButton2.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.toolStripMenuItem6,
+            this.toolStripSeparator4,
+            this.toolStripMenuItem7,
+            this.toolStripMenuItem8});
+            this.toolStripDropDownButton2.Image = ((System.Drawing.Image)(resources.GetObject("toolStripDropDownButton2.Image")));
+            this.toolStripDropDownButton2.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.toolStripDropDownButton2.Name = "toolStripDropDownButton2";
+            this.toolStripDropDownButton2.Size = new System.Drawing.Size(29, 22);
+            this.toolStripDropDownButton2.Text = "toolStripDropDownButton2";
             // 
             // label2
             // 
@@ -299,14 +373,30 @@
             this.label2.TabIndex = 63;
             this.label2.Text = "%";
             // 
-            // label1
+            // toolStripMenuItem6
             // 
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(191, 11);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(20, 12);
-            this.label1.TabIndex = 62;
-            this.label1.Text = "ms";
+            this.toolStripMenuItem6.Checked = true;
+            this.toolStripMenuItem6.CheckOnClick = true;
+            this.toolStripMenuItem6.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.toolStripMenuItem6.Name = "toolStripMenuItem6";
+            this.toolStripMenuItem6.Size = new System.Drawing.Size(193, 22);
+            this.toolStripMenuItem6.Text = "ミニモードを使う";
+            // 
+            // toolStripMenuItem7
+            // 
+            this.toolStripMenuItem7.Name = "toolStripMenuItem7";
+            this.toolStripMenuItem7.Size = new System.Drawing.Size(244, 22);
+            // 
+            // toolStripMenuItem8
+            // 
+            this.toolStripMenuItem8.Name = "toolStripMenuItem8";
+            this.toolStripMenuItem8.Size = new System.Drawing.Size(244, 22);
+            this.toolStripMenuItem8.Text = "toolStripMenuItem8";
+            // 
+            // toolStripSeparator4
+            // 
+            this.toolStripSeparator4.Name = "toolStripSeparator4";
+            this.toolStripSeparator4.Size = new System.Drawing.Size(190, 6);
             // 
             // formTororo
             // 
@@ -326,10 +416,11 @@
             this.DragDrop += new System.Windows.Forms.DragEventHandler(this.formTororoTest_DragDrop);
             this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.formTororo_FormClosed);
             this.DragEnter += new System.Windows.Forms.DragEventHandler(this.formTororoTest_DragEnter);
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownInterval)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownOpacity)).EndInit();
             this.panelFunctions.ResumeLayout(false);
             this.panelFunctions.PerformLayout();
+            this.toolStrip1.ResumeLayout(false);
+            this.toolStrip1.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -349,18 +440,32 @@
         private System.Windows.Forms.TextBox textBoxOut;
         private System.Windows.Forms.ToolTip toolTip;
         private System.Windows.Forms.Panel panelFunctions;
-        private System.Windows.Forms.CheckBox checkBoxStop;
         private System.Windows.Forms.Label labelBackColor;
         private System.Windows.Forms.Label labelFontColor;
         private System.Windows.Forms.CheckBox checkTP;
-        private System.Windows.Forms.Button buttonOpen;
-        private System.Windows.Forms.NumericUpDown numericUpDownInterval;
         private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.NumericUpDown numericUpDownOpacity;
         private System.Windows.Forms.Button buttonFont;
-        private System.Windows.Forms.Button buttonReload;
-        private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.Button buttonLoadRecentLog;
+        private System.Windows.Forms.ToolStrip toolStrip1;
+        private System.Windows.Forms.ToolStripButton toolStripButtonOpen;
+        private System.Windows.Forms.ToolStripButton toolStripButtonLoadRecentLog;
+        private System.Windows.Forms.ToolStripButton toolStripButtonReload;
+        private System.Windows.Forms.ToolStripButton toolStripButtonStop;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator1;
+        private System.Windows.Forms.NumericUpDown numericUpDownOpacity;
+        private System.Windows.Forms.ToolStripDropDownButton toolStripDropDownButton1;
+        private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem1;
+        private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem2;
+        private System.Windows.Forms.ToolStripDropDownButton toolStripDropDownButton2;
+        private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem3;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator2;
+        private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem4;
+        private System.Windows.Forms.ToolStripComboBox toolStripComboBox1;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator3;
+        private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem5;
+        private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem6;
+        private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem7;
+        private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem8;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator4;
     }
 }
 

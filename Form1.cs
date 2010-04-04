@@ -26,6 +26,10 @@ namespace tororo_gui
         Size  fullmode_size;
         bool hold_fullmode = false;
 
+        decimal interval;
+        decimal opacity;
+        bool transparent;
+
         IronRubyScriptEngine ire;
 
         public formTororo()
@@ -42,9 +46,9 @@ namespace tororo_gui
                 = Properties.Settings.Default.FontColor;
             textBoxOut.BackColor = labelBackColor.BackColor
                 = Properties.Settings.Default.BackColor;
-            numericUpDownInterval.Value = Properties.Settings.Default.Interval;
-            numericUpDownOpacity.Value = Properties.Settings.Default.Opacity;
-            checkTP.Checked = Properties.Settings.Default.Transparent;
+            interval = Properties.Settings.Default.Interval;
+            opacity = Properties.Settings.Default.Opacity;
+            transparent = Properties.Settings.Default.Transparent;
             opf.InitialDirectory = Properties.Settings.Default.Dir;
             this.Text = create_version_string(
                 application_name, prefix_version, "", gui_version
@@ -73,12 +77,6 @@ namespace tororo_gui
             }
         }
 
-        private void buttonReload_Click(object sender, EventArgs e)
-        {
-            if (logpath == "") return;
-            start();
-            convert_log(logpath);
-        }
         private void load_log(string path)
         {
             if (File.Exists(path)) {
@@ -86,7 +84,6 @@ namespace tororo_gui
                 start();
                 convert_log(path);
                 logpath = path;
-                toolTip.SetToolTip(buttonOpen, path);
                 Properties.Settings.Default.Dir = path;
                 this.Text = create_version_string(
                 application_name, prefix_version, core_version, gui_version
@@ -97,7 +94,7 @@ namespace tororo_gui
 
         private void start()
         {
-            checkBoxStop.Checked = false;
+            toolStripButtonStop.Checked = false;
             timerContinue.Enabled = false;
             ire.ExecuteFile("tororo.rb");
             ire.Invoke("t = Tororo.new");
@@ -108,7 +105,7 @@ namespace tororo_gui
             timerContinue.Enabled = true;
         }
 
-        private void buttonOpen_Click(object sender, EventArgs e)
+        private void toolStripButtonOpen_Click(object sender, EventArgs e)
         {
             hold_fullmode = true;
             if (opf.ShowDialog() == DialogResult.OK) {
@@ -117,12 +114,27 @@ namespace tororo_gui
             hold_fullmode = false;
         }
 
-        private void buttonLoadRecentLog_Click(object sender, EventArgs e)
+        private void toolStripButtonLoadRecentLog_Click(object sender, EventArgs e)
         {
             string recent_log_path;
             recent_log_path = get_recent_log_path();
             if (recent_log_path == null) return;
             load_log(recent_log_path);
+        }
+
+        private void toolStripButtonReload_Click(object sender, EventArgs e)
+        {
+            if (logpath == "") return;
+            start();
+            convert_log(logpath);
+        }
+
+        private void toolStripButtonStop_CheckedChanged(object sender, EventArgs e)
+        {
+            if (ire == null) {
+                toolStripButtonStop.CheckState = CheckState.Unchecked;
+            }
+            timerContinue.Enabled = !toolStripButtonStop.Checked;
         }
 
         private string do_convert(string command)
@@ -177,7 +189,7 @@ namespace tororo_gui
             textBoxOut.Text += str;
             // this.Cursor = Cursors.Default;
         }
-
+        /*
         private void numericUpDownSec_ValueChanged(object sender, EventArgs e)
         {
             if (numericUpDownInterval.Value == 0) {
@@ -187,7 +199,7 @@ namespace tororo_gui
                 timerContinue.Enabled = true;
             }
         }
-
+        */
         private void numericUpDownOpacity_ValueChanged(object sender, EventArgs e)
         {
             this.Opacity = (double)numericUpDownOpacity.Value * 0.01;
@@ -223,7 +235,7 @@ namespace tororo_gui
             Properties.Settings.Default.Font = textBoxOut.Font;
             Properties.Settings.Default.FontColor = textBoxOut.ForeColor;
             Properties.Settings.Default.BackColor = textBoxOut.BackColor;
-            Properties.Settings.Default.Interval = numericUpDownInterval.Value;
+            Properties.Settings.Default.Interval = interval;
             Properties.Settings.Default.Opacity = numericUpDownOpacity.Value;
             Properties.Settings.Default.Transparent = checkTP.Checked;
             if (logpath != "") {
@@ -264,13 +276,6 @@ namespace tororo_gui
             }
         }
 
-        private void checkBoxStop_CheckedChanged(object sender, EventArgs e)
-        {
-            if (ire == null) {
-                checkBoxStop.CheckState = CheckState.Unchecked;
-            }
-            timerContinue.Enabled = !checkBoxStop.Checked;
-        }
         // versions: {prefix, core, gui}
         private string create_version_string(string app_name, params string[] versions)
         {
