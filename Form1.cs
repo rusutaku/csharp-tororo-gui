@@ -15,44 +15,59 @@ namespace tororo_gui
 {
     public partial class formTororo : Form
     {
-        const string application_name = "tororo";
-        const string prefix_version = "β";
-        string gui_version = Application.ProductVersion.ToString();
-        string core_version;
+        const string _application_name = "tororo";
+        const string _prefix_version = "pre δ";
+        string _gui_version = Application.ProductVersion.ToString();
+        string _core_version;
 
-        string logpath = "";
+        string _logpath = "";
 
-        Point fullmode_point;
-        Size  fullmode_size;
-        bool hold_fullmode = false;
+        Point _fullmode_point;
+        Size  _fullmode_size;
+        bool _hold_fullmode = false;
 
-        decimal interval;
-        decimal opacity;
-        bool transparent;
+        guiSettings GeneralSettings = new guiSettings("settings-general.xml");
 
-        IronRubyScriptEngine ire;
+        IronRubyScriptEngine _ire;
 
         public formTororo()
         {
             InitializeComponent();
-            ire = new IronRubyScriptEngine();
-            this.Top    = Properties.Settings.Default.Top;
-            this.Left   = Properties.Settings.Default.Left;
-            this.Width  = Properties.Settings.Default.Width;
-            this.Height = Properties.Settings.Default.Height;
-            textBoxOut.Font = fontDialog.Font
-                = Properties.Settings.Default.Font;
-            textBoxOut.ForeColor = labelFontColor.BackColor
-                = Properties.Settings.Default.FontColor;
-            textBoxOut.BackColor = labelBackColor.BackColor
-                = Properties.Settings.Default.BackColor;
-            interval = Properties.Settings.Default.Interval;
-            opacity = Properties.Settings.Default.Opacity;
-            transparent = Properties.Settings.Default.Transparent;
+            _ire = new IronRubyScriptEngine();
+
+            this.ClientSize = Properties.Settings.Default.formTororoSize;
+
+            toolStripNumericUpDownOpacity.NumericUpDownControl.Minimum = 50;
+            toolStripNumericUpDownOpacity.NumericUpDownControl.Maximum = 100;
+            toolStripNumericUpDownOpacity.NumericUpDownControl.Increment = 2;
+            toolStripNumericUpDownInterval.NumericUpDownControl.Minimum = 50;
+            toolStripNumericUpDownInterval.NumericUpDownControl.Maximum = 5000;
+            toolStripNumericUpDownInterval.NumericUpDownControl.Increment = 50;
+
+            decimal opacity = 100;
+            decimal interval = 50;
+            bool transparency = false;
+
+            GeneralSettings.LoadSettings();
+            if (!GeneralSettings.IsEmpty())
+            {
+                opacity = (decimal)GeneralSettings.GetCorrectly("opacity", TypeCode.Decimal, 100);
+                interval = (decimal)GeneralSettings.GetCorrectly("interval", TypeCode.Decimal, 500);
+                transparency = (bool)GeneralSettings.GetCorrectly("transparency", TypeCode.Boolean, false);
+            }
+
+            toolStripNumericUpDownOpacity.NumericUpDownControl.Value = opacity;
+            toolStripNumericUpDownInterval.NumericUpDownControl.Value = interval;
+            toolStripCheckTP.Checked = transparency;
+
+            rTextBoxOut.Size = this.ClientSize;
+            rTextBoxOut.Height -= toolStrip.Height;
+            //rTextBoxOut.Font = fontDialog.Font
+            //    = Properties.Settings.Default.Font;
+            //rTextBoxOut.ForeColor = Properties.Settings.Default.FontColor;
+            //rTextBoxOut.BackColor = Properties.Settings.Default.BackColor;
             opf.InitialDirectory = Properties.Settings.Default.Dir;
-            this.Text = create_version_string(
-                application_name, prefix_version, "", gui_version
-                );
+            load_core();
         }
 
         private void formTororoTest_DragDrop(object sender, DragEventArgs e)
@@ -83,10 +98,10 @@ namespace tororo_gui
                 this.Cursor = Cursors.WaitCursor;
                 start();
                 convert_log(path);
-                logpath = path;
+                _logpath = path;
                 Properties.Settings.Default.Dir = path;
                 this.Text = create_version_string(
-                application_name, prefix_version, core_version, gui_version
+                _application_name, _prefix_version, _core_version, _gui_version
                 ) + " - " + Path.GetFileName(path);
                 this.Cursor = Cursors.Default;
             }
@@ -94,24 +109,19 @@ namespace tororo_gui
 
         private void start()
         {
+            toolStripButtonStop.Enabled = true;
             toolStripButtonStop.Checked = false;
             timerContinue.Enabled = false;
-            ire.ExecuteFile("tororo.rb");
-            ire.Invoke("t = Tororo.new");
-            core_version = ire.Invoke("t.version").ToString();
-            this.Text = create_version_string(
-                application_name, prefix_version, core_version, gui_version
-                );
             timerContinue.Enabled = true;
         }
 
         private void toolStripButtonOpen_Click(object sender, EventArgs e)
         {
-            hold_fullmode = true;
+            _hold_fullmode = true;
             if (opf.ShowDialog() == DialogResult.OK) {
                 load_log(opf.FileName);
             }
-            hold_fullmode = false;
+            _hold_fullmode = false;
         }
 
         private void toolStripButtonLoadRecentLog_Click(object sender, EventArgs e)
@@ -124,156 +134,113 @@ namespace tororo_gui
 
         private void toolStripButtonReload_Click(object sender, EventArgs e)
         {
-            if (logpath == "") return;
+            Reconvert();
+        }
+
+        public void Reconvert()
+        {
+            if (_logpath == "") return;
             start();
-            convert_log(logpath);
+            convert_log(_logpath);
         }
 
         private void toolStripButtonStop_CheckedChanged(object sender, EventArgs e)
         {
-            if (ire == null) {
+            if (_ire == null) {
                 toolStripButtonStop.CheckState = CheckState.Unchecked;
             }
             timerContinue.Enabled = !toolStripButtonStop.Checked;
         }
 
-        private string do_convert(string command)
-        {
-
-            // 戻り値は UTF8 の文字列
-            var result = ire.Invoke("t." + command);
-            string str;
-
-            str = result.ToString();
-            if (((IronRuby.Builtins.MutableString)(result)).Encoding.Name == "ASCII-8BIT") {
-                str = reviveCode(str); // 修復する
-            }
-            return str;
-        }
-        private void convert_log(string filepath)
-        {
-            string str = do_convert("conv_from_log('" + filepath + "')");
-            textBoxOut.Text = str;
-        }
-
-        // 文字化けを直す
-        private string reviveCode(string broken)
-        {
-            byte[] b, r;
-            string rev;
-            b = Encoding.Unicode.GetBytes(broken); // バイト配列に分解
-            r = new byte[b.Length / 2]; // UTF8のバイト配列
-            int j = 0;
-            // 0x00 のバイトを削って詰める（奇数バイト）
-            for (int i = 0; i < b.Length; i += 2) {
-                r[j++] = b[i];
-            }
-            // 正しい UTF8 のバイト配列を得たが，textBox が扱えるのは UTF16
-            // なので UTF8 -> UTF16(Unicode) 変換
-            r = Encoding.Convert(Encoding.UTF8, Encoding.Unicode, r);
-            rev = Encoding.Unicode.GetString(r); // 文字列に変換
-            return rev;
-        }
-
-        private void textBoxOut_TextChanged(object sender, EventArgs e)
-        {
-            textBoxOut.SelectionStart = textBoxOut.Text.Length;
-            textBoxOut.ScrollToCaret();
-        }
-
         private void timerContinue_Tick(object sender, EventArgs e)
         {
-            if ((logpath == "") || (ire == null)) return;
+            if ((_logpath == "") || (_ire == null)) return;
             // this.Cursor = Cursors.WaitCursor;
+            int num = (int)_ire.Invoke("t.count");
             string str = do_convert("conv_continue");
-            textBoxOut.Text += str;
+            if (str != "")
+            {
+                this.SuspendLayout();
+
+                AppendRtfToRichTextBox(rTextBoxOut, GetRTF(str, num));
+                rTextBoxOut.Rtf = rTextBoxOut.Rtf.Replace("\\par\r\n\\par\r\n", "\\par\r\n");
+                //if (!IsEndOfScroll())
+                //{
+                    ScrollToEnd();
+                //}
+                this.ResumeLayout();
+            }
             // this.Cursor = Cursors.Default;
         }
-        /*
-        private void numericUpDownSec_ValueChanged(object sender, EventArgs e)
+
+        private void ScrollToEnd()
         {
-            if (numericUpDownInterval.Value == 0) {
+            rTextBoxOut.SelectionStart = rTextBoxOut.Text.Length;
+            rTextBoxOut.ScrollToCaret();
+        }
+
+        private void toolStripNumericUpDownInterval_ValueChanged(object sender, EventArgs e)
+        {
+            if (toolStripNumericUpDownInterval.NumericUpDownControl.Value == 0)
+            {
                 timerContinue.Enabled = false;
             } else {
-                timerContinue.Interval = (int)numericUpDownInterval.Value;
+                timerContinue.Interval = (int)toolStripNumericUpDownInterval.NumericUpDownControl.Value;
                 timerContinue.Enabled = true;
             }
         }
-        */
-        private void numericUpDownOpacity_ValueChanged(object sender, EventArgs e)
+
+        private void toolStripNumericUpDownOpacity_ValueChanged(object sender, EventArgs e)
         {
-            this.Opacity = (double)numericUpDownOpacity.Value * 0.01;
+            this.Opacity = (double)toolStripNumericUpDownOpacity.NumericUpDownControl.Value * 0.01;
         }
 
-        private void buttonFont_Click(object sender, EventArgs e)
+        private void formTororo_FormClosing(object sender, FormClosingEventArgs e)
         {
-            hold_fullmode = true;
-            if (fontDialog.ShowDialog() == DialogResult.OK) {
-                textBoxOut.Font = fontDialog.Font;
-            }
-            hold_fullmode = false;
-        }
-
-        private void fontDialog_Apply(object sender, EventArgs e)
-        {
-            textBoxOut.Font = fontDialog.Font;
+            Properties.Settings.Default.formTororoSize = this.ClientSize;
+            Properties.Settings.Default.Save();
         }
 
         private void formTororo_FormClosed(object sender, FormClosedEventArgs e)
         {
-            if (this.WindowState == FormWindowState.Normal) {
-                Properties.Settings.Default.Top = this.Top;
-                Properties.Settings.Default.Left = this.Left;
-                Properties.Settings.Default.Width = this.Width;
-                Properties.Settings.Default.Height = this.Height;
-            } else {
-                Properties.Settings.Default.Top = this.RestoreBounds.Top;
-                Properties.Settings.Default.Left = this.RestoreBounds.Left;
-                Properties.Settings.Default.Width = this.RestoreBounds.Width;
-                Properties.Settings.Default.Height = this.RestoreBounds.Height;
+            GeneralSettings.Set("transparency", toolStripCheckTP.Checked);
+            GeneralSettings.Set("opacity", toolStripNumericUpDownOpacity.NumericUpDownControl.Value);
+            GeneralSettings.Set("interval", toolStripNumericUpDownInterval.NumericUpDownControl.Value);
+            //if (logpath != "")
+            //{
+            //    GeneralSettings.Set("logdir", Path.GetDirectoryName(logpath));
+            //}
+            GeneralSettings.Save();
+            
+            //Properties.Settings.Default.Font = rTextBoxOut.Font;
+            //Properties.Settings.Default.FontColor = rTextBoxOut.ForeColor;
+            //Properties.Settings.Default.BackColor = rTextBoxOut.BackColor;
+            //Properties.Settings.Default.Interval = interval;
+            //Properties.Settings.Default.Opacity = numericUpDownOpacity.Value;
+            //Properties.Settings.Default.Transparent = checkTP.Checked;
+            if (_logpath != "")
+            {
+                Properties.Settings.Default.Dir = Path.GetDirectoryName(_logpath);
             }
-            Properties.Settings.Default.Font = textBoxOut.Font;
-            Properties.Settings.Default.FontColor = textBoxOut.ForeColor;
-            Properties.Settings.Default.BackColor = textBoxOut.BackColor;
-            Properties.Settings.Default.Interval = interval;
-            Properties.Settings.Default.Opacity = numericUpDownOpacity.Value;
-            Properties.Settings.Default.Transparent = checkTP.Checked;
-            if (logpath != "") {
-                Properties.Settings.Default.Dir = Path.GetDirectoryName(logpath);
-            }
-            Properties.Settings.Default.Save();
+            //Properties.Settings.Default.formTororoLocation = this.RestoreBounds.Location;
+            //Properties.Settings.Default.formTororoSize = this.RestoreBounds.Size;
+            
         }
 
-        private void labelFontColor_Click(object sender, EventArgs e)
+        private void toolStripCheckTP_CheckedChanged(object sender, EventArgs e)
         {
-            hold_fullmode = true;
-            colorDialog.Color = labelFontColor.BackColor;
-            if (colorDialog.ShowDialog() == DialogResult.OK) {
-                textBoxOut.ForeColor = colorDialog.Color;
-                labelFontColor.BackColor = colorDialog.Color;
-            }
-            hold_fullmode = false;
-        }
-
-        private void labelBackColor_Click(object sender, EventArgs e)
-        {
-            hold_fullmode = true;
-            colorDialog.Color = labelBackColor.BackColor;
-            if (colorDialog.ShowDialog() == DialogResult.OK) {
-                checkTP.Checked = false;
-                textBoxOut.BackColor = colorDialog.Color;
-                labelBackColor.BackColor = colorDialog.Color;
-            }
-            hold_fullmode = false;
-        }
-
-        private void checkTP_CheckedChanged(object sender, EventArgs e)
-        {
-            if (checkTP.Checked) {
-                this.TransparencyKey = textBoxOut.BackColor;
+            if (toolStripCheckTP.Checked) {
+                this.TransparencyKey = rTextBoxOut.BackColor;
             } else {
                 this.TransparencyKey = new Color();
             }
+        }
+
+        private void toolStripButtonFontSettings_Click(object sender, EventArgs e)
+        {
+            formFontSettings.Instance.Show();
+            this.AddOwnedForm(formFontSettings.Instance);
+            formFontSettings.Instance.SetIronRubyInstance(_ire);
         }
 
         // versions: {prefix, core, gui}
@@ -328,40 +295,181 @@ namespace tororo_gui
 
         private void set_gui_mode(bool full)
         {
-            if (this.WindowState.Equals(FormWindowState.Minimized) || hold_fullmode) return;
+            if (this.WindowState.Equals(FormWindowState.Minimized) || _hold_fullmode) return;
             this.SuspendLayout();
-            Point minimode_point = PointToScreen(textBoxOut.Bounds.Location);
+            Point minimode_point = PointToScreen(rTextBoxOut.Bounds.Location);
             switch (this.FormBorderStyle) {
                 case FormBorderStyle.None:
                     
                     break;
                 case FormBorderStyle.Sizable:
-                    fullmode_point = this.Location;
-                    fullmode_size  = this.ClientSize;
+                    _fullmode_point = this.Location;
+                    _fullmode_size  = this.ClientSize;
                     break;
             }
 
             if (full) {
                 this.FormBorderStyle = FormBorderStyle.Sizable;
-                this.Location = fullmode_point;
-                this.ClientSize = fullmode_size;
-                textBoxOut.SelectionLength = 0;
-                textBoxOut.Top  = panelFunctions.Height;
-                textBoxOut.Left = panelFunctions.Left;
-            } else {
+                this.Location = _fullmode_point;
+                this.ClientSize = _fullmode_size;
+                rTextBoxOut.SelectionLength = 0;
+                rTextBoxOut.Top  = toolStrip.Height;
+                rTextBoxOut.Left = toolStrip.Left;
+            }
+            else if (toolStripMinimode.Checked)
+            {
                 this.FormBorderStyle = FormBorderStyle.None;
                 this.Location = minimode_point;
-                this.ClientSize = textBoxOut.Size;
+                this.ClientSize = rTextBoxOut.Size;
                 // スクロールバーを隠す
                 // 強力透過の場合は半分だけ隠す
-                if (checkTP.Checked) {
+                if (toolStripCheckTP.Checked) {
                     this.Width -= SystemInformation.VerticalScrollBarWidth / 2;
                 } else {
                     this.Width -= SystemInformation.VerticalScrollBarWidth;
                 }
-                textBoxOut.Location = panelFunctions.Location;
+                rTextBoxOut.Location = toolStrip.Location;
             }
             this.ResumeLayout();
         }
+
+        private void load_core()
+        {
+            _ire.ExecuteFile("tororo.rb");
+            _ire.Invoke("t = Tororo.new");
+            _core_version = _ire.Invoke("t.version").ToString();
+            this.Text = create_version_string(
+                _application_name, _prefix_version, _core_version, _gui_version
+                );
+        }
+
+        private string do_convert(string command)
+        {
+
+            // 戻り値は UTF8 の文字列
+            var result = _ire.Invoke("t." + command);
+            string str;
+
+            str = result.ToString();
+            if (((IronRuby.Builtins.MutableString)(result)).Encoding.Name == "ASCII-8BIT")
+            {
+                str = reviveCode(str); // 修復する
+            }
+            return str;
+        }
+        private void convert_log(string filepath)
+        {
+            string str = do_convert("conv_from_log('" + filepath + "')");
+            this.SuspendLayout();
+            rTextBoxOut.Rtf = GetRTF(str).Rtf;
+            ScrollToEnd();
+            this.ResumeLayout();
+        }
+
+        private RichTextBox GetRTF(string str, int num = 0)
+        {
+            RichTextBox richtb = new RichTextBox();
+            RichTextBox rtfline = new RichTextBox(); //一行分のリッチテキスト
+            StringReader sr = new StringReader(str);
+
+            richtb.Font = rTextBoxOut.Font;
+            richtb.ForeColor = rTextBoxOut.ForeColor;
+            richtb.BackColor = rTextBoxOut.BackColor;
+            
+            while ((rtfline.Text = sr.ReadLine()) != null)
+            {
+                string attr;
+                Font font = GetAttributeFont("default");
+                Color color = GetAttributeColor("default_fore");
+                if ((attr = GetLineAttribute(num)) != null)
+                {
+                    font = GetAttributeFont(attr);
+                    color = GetAttributeColor(attr);
+                }
+                rtfline.Font = font;
+                rtfline.ForeColor = color;
+                // キャラクタ名の色変え
+                // int start, end;
+                // GetCharacterNameOffset(ref start, ref end);
+                // richline.SelectionStart = start;
+                // richline.SelectionLength = end - start;
+                // richline.SelectionColor = ...;
+                // 行の追加
+                AppendRtfToRichTextBox(richtb, rtfline);
+
+                num++;
+            }
+            
+            return richtb;
+        }
+
+        /// <summary>
+        /// RichTextBoxの末尾にRTFを追加
+        /// </summary>
+        /// <param name="rtb0">RTFを追加するRichTextBox</param>
+        /// <param name="rtb1">追加するRichTextBox</param>
+        public static void AppendRtfToRichTextBox(
+            RichTextBox rtb0, RichTextBox rtb1)
+        {
+            rtb0.SelectionStart = rtb0.TextLength;
+            rtb0.SelectedRtf = rtb1.Rtf;
+            
+        }
+
+        private string GetLineAttribute(int num)
+        {
+            object ms; // MutableString のつもり
+            if ((ms = _ire.Invoke("t.get_line_attribute(" + num + ")")) != null)
+            {
+                return ms.ToString();
+            }
+            else
+            {
+                return null;
+            }
+        }
+
+        private Font GetAttributeFont(string attr)
+        {
+            Font font = formFontSettings.Instance.GetFont(attr, true);
+            return font;
+        }
+
+        private Color GetAttributeColor(string attr)
+        {
+            Color color = formFontSettings.Instance.GetColor(attr, true);
+            return color;
+        }
+
+        // 文字化けを直す
+        private string reviveCode(string broken)
+        {
+            byte[] b, r;
+            string rev;
+            b = Encoding.Unicode.GetBytes(broken); // バイト配列に分解
+            r = new byte[b.Length / 2]; // UTF8のバイト配列
+            int j = 0;
+            // 0x00 のバイトを削って詰める（奇数バイト）
+            for (int i = 0; i < b.Length; i += 2)
+            {
+                r[j++] = b[i];
+            }
+            // 正しい UTF8 のバイト配列を得たが，textBox が扱えるのは UTF16
+            // なので UTF8 -> UTF16(Unicode) 変換
+            r = Encoding.Convert(Encoding.UTF8, Encoding.Unicode, r);
+            rev = Encoding.Unicode.GetString(r); // 文字列に変換
+            return rev;
+        }
+
+        /*
+        public void initialize_settings()
+        {
+            Hash ht = (Hash)ire.Invoke("");
+        }
+        public bool load_settings()
+        {
+            return true;
+        }
+        */
     }
 }
