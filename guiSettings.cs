@@ -77,17 +77,19 @@ namespace tororo_gui
 
         public object GetCorrectly(string key, TypeCode type,  object init_value = null)
         {
-            try
+            if (_htSettings[key] != null)
             {
-                object ret;
-                ret = Convert.ChangeType(_htSettings[key], type);
-                return ret;
+                try
+                {
+                    object ret;
+                    ret = Convert.ChangeType(_htSettings[key], type);
+                    return ret;
+                }
+                catch (ArgumentNullException e)
+                {
+                    System.Console.WriteLine(key + " に対応する値は空です．", e);
+                }
             }
-            catch (ArgumentNullException e)
-            {
-                System.Console.WriteLine(key + " に対応する値は空です．", e);
-            }
-
             return init_value;
         }
 

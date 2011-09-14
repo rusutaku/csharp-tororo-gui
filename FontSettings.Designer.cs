@@ -186,7 +186,7 @@
             this.buttonDefaultFont.AutoSize = true;
             this.buttonDefaultFont.Location = new System.Drawing.Point(12, 24);
             this.buttonDefaultFont.Name = "buttonDefaultFont";
-            this.buttonDefaultFont.Size = new System.Drawing.Size(191, 23);
+            this.buttonDefaultFont.Size = new System.Drawing.Size(191, 30);
             this.buttonDefaultFont.TabIndex = 5;
             this.buttonDefaultFont.UseVisualStyleBackColor = true;
             this.buttonDefaultFont.Click += new System.EventHandler(this.buttonDefaultFont_Click);
@@ -194,7 +194,7 @@
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(328, 9);
+            this.label2.Location = new System.Drawing.Point(371, 9);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(41, 12);
             this.label2.TabIndex = 6;
@@ -202,16 +202,16 @@
             // 
             // buttonBackColor
             // 
-            this.buttonBackColor.Location = new System.Drawing.Point(330, 24);
+            this.buttonBackColor.Location = new System.Drawing.Point(373, 24);
             this.buttonBackColor.Name = "buttonBackColor";
-            this.buttonBackColor.Size = new System.Drawing.Size(39, 23);
+            this.buttonBackColor.Size = new System.Drawing.Size(52, 30);
             this.buttonBackColor.TabIndex = 7;
             this.buttonBackColor.UseVisualStyleBackColor = true;
             // 
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(385, 9);
+            this.label3.Location = new System.Drawing.Point(424, 9);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(85, 12);
             this.label3.TabIndex = 8;
@@ -220,7 +220,7 @@
             // 
             // buttonHighlight
             // 
-            this.buttonHighlight.Location = new System.Drawing.Point(387, 24);
+            this.buttonHighlight.Location = new System.Drawing.Point(449, 24);
             this.buttonHighlight.Name = "buttonHighlight";
             this.buttonHighlight.Size = new System.Drawing.Size(39, 23);
             this.buttonHighlight.TabIndex = 9;
@@ -231,7 +231,7 @@
             // 
             this.buttonDefaultFontColor.Location = new System.Drawing.Point(209, 24);
             this.buttonDefaultFontColor.Name = "buttonDefaultFontColor";
-            this.buttonDefaultFontColor.Size = new System.Drawing.Size(39, 23);
+            this.buttonDefaultFontColor.Size = new System.Drawing.Size(52, 30);
             this.buttonDefaultFontColor.TabIndex = 10;
             this.buttonDefaultFontColor.UseVisualStyleBackColor = true;
             this.buttonDefaultFontColor.Click += new System.EventHandler(this.buttonDefaultFontColor_Click);
@@ -241,15 +241,15 @@
             this.label4.AutoSize = true;
             this.label4.Location = new System.Drawing.Point(207, 9);
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(17, 12);
+            this.label4.Size = new System.Drawing.Size(74, 12);
             this.label4.TabIndex = 11;
-            this.label4.Text = "色";
+            this.label4.Text = "標準フォント色";
             // 
             // buttonDefaultCharColor
             // 
-            this.buttonDefaultCharColor.Location = new System.Drawing.Point(268, 24);
+            this.buttonDefaultCharColor.Location = new System.Drawing.Point(289, 24);
             this.buttonDefaultCharColor.Name = "buttonDefaultCharColor";
-            this.buttonDefaultCharColor.Size = new System.Drawing.Size(39, 23);
+            this.buttonDefaultCharColor.Size = new System.Drawing.Size(52, 30);
             this.buttonDefaultCharColor.TabIndex = 12;
             this.buttonDefaultCharColor.UseVisualStyleBackColor = true;
             this.buttonDefaultCharColor.Click += new System.EventHandler(this.buttonDefaultCharColor_Click);
@@ -257,7 +257,7 @@
             // label5
             // 
             this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(251, 9);
+            this.label5.Location = new System.Drawing.Point(287, 9);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(71, 12);
             this.label5.TabIndex = 13;

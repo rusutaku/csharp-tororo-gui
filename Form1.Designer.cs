@@ -48,12 +48,14 @@
             this.toolStrip = new tororo_gui.ToolStripEx();
             this.toolStripButtonOpen = new System.Windows.Forms.ToolStripButton();
             this.toolStripButtonLoadRecentLog = new System.Windows.Forms.ToolStripButton();
+            this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
             this.toolStripButtonReload = new System.Windows.Forms.ToolStripButton();
             this.toolStripButtonStop = new System.Windows.Forms.ToolStripButton();
-            this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
+            this.toolStripSeparator4 = new System.Windows.Forms.ToolStripSeparator();
             this.toolStripButtonFontSettings = new System.Windows.Forms.ToolStripButton();
             this.toolStripDropDownButtonSettings = new System.Windows.Forms.ToolStripDropDownButton();
-            this.toolStripMinimode = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripCheckMinimode = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripCheckScroll = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripCheckTP = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
             this.TipOpacity = new System.Windows.Forms.ToolStripMenuItem();
@@ -173,14 +175,15 @@
             this.toolStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.toolStripButtonOpen,
             this.toolStripButtonLoadRecentLog,
+            this.toolStripSeparator1,
             this.toolStripButtonReload,
             this.toolStripButtonStop,
-            this.toolStripSeparator1,
+            this.toolStripSeparator4,
             this.toolStripButtonFontSettings,
             this.toolStripDropDownButtonSettings});
             this.toolStrip.Location = new System.Drawing.Point(0, 0);
             this.toolStrip.Name = "toolStrip";
-            this.toolStrip.Size = new System.Drawing.Size(153, 25);
+            this.toolStrip.Size = new System.Drawing.Size(190, 25);
             this.toolStrip.TabIndex = 66;
             this.toolStrip.Text = "toolStrip1";
             // 
@@ -191,7 +194,7 @@
             this.toolStripButtonOpen.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.toolStripButtonOpen.Name = "toolStripButtonOpen";
             this.toolStripButtonOpen.Size = new System.Drawing.Size(23, 22);
-            this.toolStripButtonOpen.Text = "toolStripButtonOpen";
+            this.toolStripButtonOpen.Text = "開く";
             this.toolStripButtonOpen.ToolTipText = "開く";
             this.toolStripButtonOpen.Click += new System.EventHandler(this.toolStripButtonOpen_Click);
             // 
@@ -204,6 +207,11 @@
             this.toolStripButtonLoadRecentLog.Size = new System.Drawing.Size(23, 22);
             this.toolStripButtonLoadRecentLog.Text = "最新の LotRO チャットログを開く";
             this.toolStripButtonLoadRecentLog.Click += new System.EventHandler(this.toolStripButtonLoadRecentLog_Click);
+            // 
+            // toolStripSeparator1
+            // 
+            this.toolStripSeparator1.Name = "toolStripSeparator1";
+            this.toolStripSeparator1.Size = new System.Drawing.Size(6, 25);
             // 
             // toolStripButtonReload
             // 
@@ -227,10 +235,10 @@
             this.toolStripButtonStop.Text = "停止";
             this.toolStripButtonStop.CheckedChanged += new System.EventHandler(this.toolStripButtonStop_CheckedChanged);
             // 
-            // toolStripSeparator1
+            // toolStripSeparator4
             // 
-            this.toolStripSeparator1.Name = "toolStripSeparator1";
-            this.toolStripSeparator1.Size = new System.Drawing.Size(6, 25);
+            this.toolStripSeparator4.Name = "toolStripSeparator4";
+            this.toolStripSeparator4.Size = new System.Drawing.Size(6, 25);
             // 
             // toolStripButtonFontSettings
             // 
@@ -246,7 +254,8 @@
             // 
             this.toolStripDropDownButtonSettings.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
             this.toolStripDropDownButtonSettings.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.toolStripMinimode,
+            this.toolStripCheckMinimode,
+            this.toolStripCheckScroll,
             this.toolStripCheckTP,
             this.toolStripSeparator2,
             this.TipOpacity,
@@ -259,20 +268,29 @@
             this.toolStripDropDownButtonSettings.Size = new System.Drawing.Size(29, 22);
             this.toolStripDropDownButtonSettings.Text = "toolStripDropDownButton2";
             // 
-            // toolStripMinimode
+            // toolStripCheckMinimode
             // 
-            this.toolStripMinimode.Checked = true;
-            this.toolStripMinimode.CheckOnClick = true;
-            this.toolStripMinimode.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.toolStripMinimode.Name = "toolStripMinimode";
-            this.toolStripMinimode.Size = new System.Drawing.Size(172, 22);
-            this.toolStripMinimode.Text = "ミニモードを使う";
+            this.toolStripCheckMinimode.Checked = true;
+            this.toolStripCheckMinimode.CheckOnClick = true;
+            this.toolStripCheckMinimode.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.toolStripCheckMinimode.Name = "toolStripCheckMinimode";
+            this.toolStripCheckMinimode.Size = new System.Drawing.Size(232, 22);
+            this.toolStripCheckMinimode.Text = "ミニモードを使う";
+            // 
+            // toolStripCheckScroll
+            // 
+            this.toolStripCheckScroll.Checked = true;
+            this.toolStripCheckScroll.CheckOnClick = true;
+            this.toolStripCheckScroll.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.toolStripCheckScroll.Name = "toolStripCheckScroll";
+            this.toolStripCheckScroll.Size = new System.Drawing.Size(232, 22);
+            this.toolStripCheckScroll.Text = "随時最新行にスクロールする";
             // 
             // toolStripCheckTP
             // 
             this.toolStripCheckTP.CheckOnClick = true;
             this.toolStripCheckTP.Name = "toolStripCheckTP";
-            this.toolStripCheckTP.Size = new System.Drawing.Size(172, 22);
+            this.toolStripCheckTP.Size = new System.Drawing.Size(232, 22);
             this.toolStripCheckTP.Text = "強力透過";
             this.toolStripCheckTP.ToolTipText = "透けすぎて困るの";
             this.toolStripCheckTP.CheckedChanged += new System.EventHandler(this.toolStripCheckTP_CheckedChanged);
@@ -280,19 +298,19 @@
             // toolStripSeparator2
             // 
             this.toolStripSeparator2.Name = "toolStripSeparator2";
-            this.toolStripSeparator2.Size = new System.Drawing.Size(169, 6);
+            this.toolStripSeparator2.Size = new System.Drawing.Size(229, 6);
             // 
             // TipOpacity
             // 
             this.TipOpacity.Enabled = false;
             this.TipOpacity.Name = "TipOpacity";
-            this.TipOpacity.Size = new System.Drawing.Size(172, 22);
+            this.TipOpacity.Size = new System.Drawing.Size(232, 22);
             this.TipOpacity.Text = "不透明度(%)";
             // 
             // toolStripNumericUpDownOpacity
             // 
             this.toolStripNumericUpDownOpacity.Name = "toolStripNumericUpDownOpacity";
-            this.toolStripNumericUpDownOpacity.Size = new System.Drawing.Size(39, 25);
+            this.toolStripNumericUpDownOpacity.Size = new System.Drawing.Size(45, 25);
             this.toolStripNumericUpDownOpacity.Text = "50";
             this.toolStripNumericUpDownOpacity.TextChanged += new System.EventHandler(this.toolStripNumericUpDownOpacity_ValueChanged);
             // 
@@ -300,14 +318,14 @@
             // 
             this.TipInterval.Enabled = false;
             this.TipInterval.Name = "TipInterval";
-            this.TipInterval.Size = new System.Drawing.Size(172, 22);
+            this.TipInterval.Size = new System.Drawing.Size(232, 22);
             this.TipInterval.Text = "更新間隔(ミリ秒)";
             // 
             // toolStripNumericUpDownInterval
             // 
             this.toolStripNumericUpDownInterval.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right;
             this.toolStripNumericUpDownInterval.Name = "toolStripNumericUpDownInterval";
-            this.toolStripNumericUpDownInterval.Size = new System.Drawing.Size(39, 25);
+            this.toolStripNumericUpDownInterval.Size = new System.Drawing.Size(45, 25);
             this.toolStripNumericUpDownInterval.Text = "100";
             this.toolStripNumericUpDownInterval.TextChanged += new System.EventHandler(this.toolStripNumericUpDownInterval_ValueChanged);
             // 
@@ -326,6 +344,7 @@
             this.Name = "formTororo";
             this.SizeGripStyle = System.Windows.Forms.SizeGripStyle.Show;
             this.StartPosition = System.Windows.Forms.FormStartPosition.Manual;
+            this.toolTip.SetToolTip(this, "設定");
             this.TopMost = true;
             this.Activated += new System.EventHandler(this.formTororo_Activated);
             this.Deactivate += new System.EventHandler(this.formTororo_Deactivate);
@@ -363,7 +382,7 @@
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator1;
         private System.Windows.Forms.ToolStripButton toolStripButtonFontSettings;
         private System.Windows.Forms.ToolStripDropDownButton toolStripDropDownButtonSettings;
-        private System.Windows.Forms.ToolStripMenuItem toolStripMinimode;
+        private System.Windows.Forms.ToolStripMenuItem toolStripCheckMinimode;
         private System.Windows.Forms.ToolStripMenuItem toolStripCheckTP;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator2;
         private System.Windows.Forms.ToolStripMenuItem TipOpacity;
@@ -372,6 +391,8 @@
         private ToolStripNumericUpDown toolStripNumericUpDownInterval;
         private System.Windows.Forms.RichTextBox rTextBoxOut;
         private ToolStripEx toolStrip;
+        private System.Windows.Forms.ToolStripMenuItem toolStripCheckScroll;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator4;
     }
 }
 

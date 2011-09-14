@@ -22,6 +22,8 @@ namespace tororo_gui
  
         IronRubyScriptEngine _ire;
 
+        bool _changed = false;
+
         guiSettings FontSettings = new guiSettings("settings-font.xml");
 
         private formFontSettings()
@@ -292,6 +294,7 @@ namespace tororo_gui
                 dgv[dgv.Columns.IndexOf(ColumnPreview), e.RowIndex].Style.ForeColor = Color.Empty;
                 dgv[dgv.Columns.IndexOf(ColumnFont), e.RowIndex].Value =
                 dgv[dgv.Columns.IndexOf(ColumnColor), e.RowIndex].Value = null;
+                _changed = true;
             }
         }
 
@@ -301,6 +304,7 @@ namespace tororo_gui
             if (fontDialog.ShowDialog() == DialogResult.OK)
             {
                 font = fontDialog.Font;
+                _changed = true;
                 return true;
             }
             else
@@ -315,6 +319,7 @@ namespace tororo_gui
             if (colorDialog.ShowDialog() == DialogResult.OK)
             {
                 color = colorDialog.Color;
+                _changed = true;
                 return true;
             }
             else
@@ -335,21 +340,32 @@ namespace tororo_gui
 
         private void buttonApply_Click(object sender, EventArgs e)
         {
-            SaveDefaultSettings();
-            SaveDGVSettings();
-            FontSettings.Save();
+            if (_changed)
+            {
+                SaveDefaultSettings();
+                SaveDGVSettings();
+                FontSettings.Save();
+                ((formTororo)this.Owner).Reconvert();
+                _changed = false;
+            }
         }
 
         private void buttonOK_Click(object sender, EventArgs e)
         {
-            SaveDefaultSettings();
-            SaveDGVSettings();
-            FontSettings.Save();
+            if (_changed)
+            {
+                SaveDefaultSettings();
+                SaveDGVSettings();
+                FontSettings.Save();
+                ((formTororo)this.Owner).Reconvert();
+                _changed = false;
+            }
             this.Close();
         }
 
         private void buttonCancel_Click(object sender, EventArgs e)
         {
+            _changed = false;
             this.Close();
         }
     }
