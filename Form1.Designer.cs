@@ -183,7 +183,7 @@
             this.toolStripDropDownButtonSettings});
             this.toolStrip.Location = new System.Drawing.Point(0, 0);
             this.toolStrip.Name = "toolStrip";
-            this.toolStrip.Size = new System.Drawing.Size(190, 25);
+            this.toolStrip.Size = new System.Drawing.Size(159, 25);
             this.toolStrip.TabIndex = 66;
             this.toolStrip.Text = "toolStrip1";
             // 
@@ -266,7 +266,8 @@
             this.toolStripDropDownButtonSettings.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.toolStripDropDownButtonSettings.Name = "toolStripDropDownButtonSettings";
             this.toolStripDropDownButtonSettings.Size = new System.Drawing.Size(29, 22);
-            this.toolStripDropDownButtonSettings.Text = "toolStripDropDownButton2";
+            this.toolStripDropDownButtonSettings.Text = "設定";
+            this.toolStripDropDownButtonSettings.ToolTipText = "設定";
             // 
             // toolStripCheckMinimode
             // 
