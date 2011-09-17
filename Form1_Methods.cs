@@ -154,7 +154,8 @@ namespace tororo_gui
                     color = GetAttributeColor(attr);
                 }
                 rtfline.Font = font;
-                rtfline.ForeColor = color;
+                rtfline.SelectAll();
+                rtfline.SelectionColor = color;
 
                 // キャラクタ名の色変え
                 int begin = 0, end = 0;
@@ -181,8 +182,9 @@ namespace tororo_gui
                 Array offset = ((RubyArray)ra).ToArray();
                 begin = (int)offset.GetValue(0);
                 end = (int)offset.GetValue(1);
+                return true;
             }
-            return true;
+            return false;
         }
 
         /// <summary>

@@ -17,7 +17,7 @@ namespace tororo_gui
     public partial class formTororo : Form
     {
         const string _application_name = "tororo";
-        const string _prefix_version = "pre δ";
+        const string _prefix_version = "δ";
         string _gui_version = Application.ProductVersion.ToString();
         string _core_version;
 
