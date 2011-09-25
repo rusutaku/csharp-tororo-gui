@@ -223,7 +223,7 @@ namespace tororo_gui
 
         private void formFontSettings_FormClosing(object sender, FormClosingEventArgs e)
         {
-            Properties.Settings.Default.formFontSettingsSize = this.ClientSize;
+            Properties.Settings.Default.formFontSettingsSize = this.ClientSize; //サイズがおかしくなるのを回避
             Properties.Settings.Default.Save();
         }
 

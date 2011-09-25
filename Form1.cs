@@ -36,6 +36,8 @@ namespace tororo_gui
             InitializeComponent();
             _ire = new IronRubyScriptEngine();
 
+            Properties.Settings.Default.SettingChanging += new System.Configuration.SettingChangingEventHandler(Default_SettingChanging);
+
             this.ClientSize = Properties.Settings.Default.formTororoSize;
 
             toolStripNumericUpDownOpacity.NumericUpDownControl.Minimum = 50;
@@ -69,7 +71,14 @@ namespace tororo_gui
             rTextBoxOut.Size = this.ClientSize;
             rTextBoxOut.Height -= toolStrip.Height;
 
-            opf.InitialDirectory = Properties.Settings.Default.Dir;
+            if (Properties.Settings.Default.Dir.Length > 0)
+            {
+                opf.InitialDirectory = Properties.Settings.Default.Dir;
+            }
+            else
+            {
+                opf.InitialDirectory = get_recent_log_path();
+            }
 
             load_core();
         }
@@ -183,7 +192,7 @@ namespace tororo_gui
 
         private void formTororo_FormClosing(object sender, FormClosingEventArgs e)
         {
-            Properties.Settings.Default.formTororoSize = this.ClientSize;
+            Properties.Settings.Default.formTororoSize = this.ClientSize; //サイズがおかしくなるのを回避
             Properties.Settings.Default.Save();
         }
 
@@ -228,6 +237,17 @@ namespace tororo_gui
         private void formTororo_Deactivate(object sender, EventArgs e)
         {
             set_gui_mode(false);
+        }
+
+        void Default_SettingChanging(object sender, System.Configuration.SettingChangingEventArgs e)
+        {
+            if (this.WindowState != FormWindowState.Normal)
+            {
+                if ((e.SettingName == "formTororoSize") || (e.SettingName == "formTororoLocation"))
+                {
+                    e.Cancel = true;
+                }
+            }
         }
     }
 }
