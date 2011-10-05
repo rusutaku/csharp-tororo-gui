@@ -162,13 +162,19 @@ namespace tororo_gui
                 if (toolStripCheckScroll.Checked)
                 {
                     rTextBoxOut.SelectionStart = rTextBoxOut.TextLength;
-                    ScrollToEnd(ref rTextBoxOut);
+                    if (this.WindowState == FormWindowState.Normal)
+                    {
+                        ScrollToEnd(ref rTextBoxOut);
+                    }
                 }
                 else
                 {
                     rTextBoxOut.SelectionStart = sel_start_temp;
                     rTextBoxOut.SelectionLength = sel_length_temp;
-                    SetScrollPos(ref rTextBoxOut, scroll_pos_temp);
+                    if (this.WindowState == FormWindowState.Normal)
+                    {
+                        SetScrollPos(ref rTextBoxOut, scroll_pos_temp);
+                    }
                 }
                 this.ResumeLayout();
             }
