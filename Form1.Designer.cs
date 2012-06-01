@@ -62,6 +62,7 @@
             this.toolStripNumericUpDownOpacity = new ToolStripNumericUpDown();
             this.TipInterval = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripNumericUpDownInterval = new ToolStripNumericUpDown();
+            this.toolStripLabelStopping = new System.Windows.Forms.ToolStripLabel();
             this.toolStrip.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -180,7 +181,8 @@
             this.toolStripButtonStop,
             this.toolStripSeparator4,
             this.toolStripButtonFontSettings,
-            this.toolStripDropDownButtonSettings});
+            this.toolStripDropDownButtonSettings,
+            this.toolStripLabelStopping});
             this.toolStrip.Location = new System.Drawing.Point(0, 0);
             this.toolStrip.Name = "toolStrip";
             this.toolStrip.Size = new System.Drawing.Size(159, 25);
@@ -330,6 +332,13 @@
             this.toolStripNumericUpDownInterval.Text = "100";
             this.toolStripNumericUpDownInterval.TextChanged += new System.EventHandler(this.toolStripNumericUpDownInterval_ValueChanged);
             // 
+            // toolStripLabelStopping
+            // 
+            this.toolStripLabelStopping.Name = "toolStripLabelStopping";
+            this.toolStripLabelStopping.Size = new System.Drawing.Size(44, 22);
+            this.toolStripLabelStopping.Text = "停止中";
+            this.toolStripLabelStopping.Visible = false;
+            // 
             // formTororo
             // 
             this.AllowDrop = true;
@@ -394,6 +403,7 @@
         private ToolStripEx toolStrip;
         private System.Windows.Forms.ToolStripMenuItem toolStripCheckScroll;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator4;
+        private System.Windows.Forms.ToolStripLabel toolStripLabelStopping;
     }
 }
 

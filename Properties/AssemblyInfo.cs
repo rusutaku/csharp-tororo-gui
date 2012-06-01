@@ -10,7 +10,7 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("rusutaku")]
 [assembly: AssemblyProduct("tororo GUI")]
-[assembly: AssemblyCopyright("Copyright © rusutaku 2009-2011")]
+[assembly: AssemblyCopyright("Copyright © rusutaku 2009-2012")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 
@@ -32,4 +32,4 @@ using System.Runtime.InteropServices;
 // すべての値を指定するか、下のように '*' を使ってビルドおよびリビジョン番号を 
 // 既定値にすることができます:
 // [assembly: AssemblyVersion("1.0.*")]
-[assembly: AssemblyVersion("1.0.0.5")]
+[assembly: AssemblyVersion("1.1.*")]

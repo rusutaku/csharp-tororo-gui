@@ -20,7 +20,7 @@ namespace tororo_gui
 
         const string SET = "*";
  
-        IronRubyScriptEngine _ire;
+        tororoCoreInterface _tc = new tororoCoreInterface();
 
         bool _changed = false;
 
@@ -84,7 +84,7 @@ namespace tororo_gui
 
         private void formFontSettings_Shown(object sender, EventArgs e)
         {
-            Array attributes = get_all_attributes().ToArray();
+            Array attributes = _tc.GetAllAttributes();
 
             dgv.Columns[dgv.Columns.IndexOf(ColumnPreview)].DefaultCellStyle.BackColor = buttonBackColor.BackColor;
             int i = 0;
@@ -234,32 +234,16 @@ namespace tororo_gui
             return str;
         }
 
-        public void SetIronRubyInstance(IronRubyScriptEngine ire)
+        public void SetCoreInstance(tororoCoreInterface tc)
         {
-            _ire = ire;
-        }
-
-        private RubyArray get_all_attributes()
-        {
-            return (RubyArray)_ire.Invoke("t.get_all_attributes");
-        }
-
-        private RubyArray get_filters(string attribute)
-        {
-            return (RubyArray)_ire.Invoke("t.get_filters('" + attribute + "')");
-        }
-
-        private Hash get_attributes_hashtable()
-        {
-            object h;
-            h = _ire.Invoke("t.get_attributes_hashtable");
-            return (Hash)h;
+            _tc = tc;
         }
 
         // 
         private void dgv_CellClick(object sender, DataGridViewCellEventArgs e)
         {
             if (e.RowIndex == -1) return; // コラムヘッダのクリックは無視する
+            // フォントの設定
             if (e.ColumnIndex == dgv.Columns.IndexOf(ColumnFont))
             {
                 Font font = dgv[dgv.Columns.IndexOf(ColumnPreview), e.RowIndex].Style.Font;
@@ -271,6 +255,7 @@ namespace tororo_gui
                     dgv[e.ColumnIndex, e.RowIndex].ToolTipText = font.ToString();
                 }
             }
+            // 色の設定
             else if (e.ColumnIndex == dgv.Columns.IndexOf(ColumnColor))
             {
                 Color color = dgv[dgv.Columns.IndexOf(ColumnPreview), e.RowIndex].Style.ForeColor;
@@ -287,6 +272,7 @@ namespace tororo_gui
                     }
                 }
             }
+            // 標準に戻す
             else if (e.ColumnIndex == dgv.Columns.IndexOf(ColumnSetDefault))
             {
                 dgv[dgv.Columns.IndexOf(ColumnPreview), e.RowIndex].Value = null;
