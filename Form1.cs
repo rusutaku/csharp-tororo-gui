@@ -17,7 +17,7 @@ namespace tororo_gui
     public partial class formTororo : Form
     {
         const string _application_name = "tororo";
-        const string _prefix_version = "δ";
+        const string _prefix_version = "ε1";
         string _gui_version = Application.ProductVersion.ToString();
 
         string _logpath = "";
@@ -34,7 +34,6 @@ namespace tororo_gui
         {
             InitializeComponent();
             
-
             Properties.Settings.Default.SettingChanging += new System.Configuration.SettingChangingEventHandler(Default_SettingChanging);
 
             this.ClientSize = Properties.Settings.Default.formTororoSize;
@@ -68,7 +67,7 @@ namespace tororo_gui
             toolStripCheckScroll.Checked = scroll_to_end;
 
             rTextBoxOut.Size = this.ClientSize;
-            rTextBoxOut.Height -= toolStrip.Height;
+            rTextBoxOut.Height -= toolStripEx.Height;
 
             if (Properties.Settings.Default.Dir.Length > 0)
             {
@@ -83,6 +82,8 @@ namespace tororo_gui
             this.Text = GetVersionString(
                 _application_name, _prefix_version, _tc.GetVersion(), _gui_version
                 );
+            // 行間を詰める
+            rTextBoxOut.LanguageOption = RichTextBoxLanguageOptions.UIFonts;
         }
 
         private void formTororoTest_DragDrop(object sender, DragEventArgs e)
@@ -364,10 +365,12 @@ namespace tororo_gui
                 string attr;
                 Font font = GetAttributeFont("default");
                 Color color = GetAttributeColor("default_fore");
+                Color char_color = GetAttributeColor("default_char");
                 if (!String.IsNullOrEmpty(attr = _tc.GetLineAttribute(line_num)))
                 {
                     font = GetAttributeFont(attr);
                     color = GetAttributeColor(attr);
+                    char_color = GetAttributeColor(attr + "_char");
                 }
                 rtfline.Font = font;
                 rtfline.SelectAll();
@@ -379,7 +382,7 @@ namespace tororo_gui
                 {
                     rtfline.SelectionStart = begin;
                     rtfline.SelectionLength = end - begin;
-                    rtfline.SelectionColor = GetCharacterNameColor();
+                    rtfline.SelectionColor = char_color;
                 }
                 // 行の追加
                 AppendRtfToRichTextBox(richtb, rtfline);
@@ -416,7 +419,7 @@ namespace tororo_gui
 
         private Color GetCharacterNameColor()
         {
-            Color color = formFontSettings.Instance.GetColor("default_char", true);
+            Color color = formFontSettings.Instance.GetColor("default_char_color", true);
             return color;
         }
 
@@ -443,8 +446,8 @@ namespace tororo_gui
                 this.Location = _fullmode_point;
                 this.ClientSize = _fullmode_size;
                 rTextBoxOut.SelectionLength = 0;
-                rTextBoxOut.Top = toolStrip.Height;
-                rTextBoxOut.Left = toolStrip.Left;
+                rTextBoxOut.Top = toolStripEx.Height;
+                rTextBoxOut.Left = toolStripEx.Left;
             }
             else if (toolStripCheckMinimode.Checked)
             {
@@ -461,7 +464,7 @@ namespace tororo_gui
                 {
                     this.Width -= SystemInformation.VerticalScrollBarWidth;
                 }
-                rTextBoxOut.Location = toolStrip.Location;
+                rTextBoxOut.Location = toolStripEx.Location;
             }
             this.ResumeLayout();
         }

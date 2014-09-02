@@ -45,7 +45,7 @@
             this.toolStripMenuItem3 = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripTextBox2 = new System.Windows.Forms.ToolStripTextBox();
             this.rTextBoxOut = new System.Windows.Forms.RichTextBox();
-            this.toolStrip = new tororo_gui.ToolStripEx();
+            this.toolStripEx = new Controls.ToolStripEx();
             this.toolStripButtonOpen = new System.Windows.Forms.ToolStripButton();
             this.toolStripButtonLoadRecentLog = new System.Windows.Forms.ToolStripButton();
             this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
@@ -59,11 +59,11 @@
             this.toolStripCheckTP = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
             this.TipOpacity = new System.Windows.Forms.ToolStripMenuItem();
-            this.toolStripNumericUpDownOpacity = new ToolStripNumericUpDown();
+            this.toolStripNumericUpDownOpacity = new Controls.ToolStripNumericUpDown();
             this.TipInterval = new System.Windows.Forms.ToolStripMenuItem();
-            this.toolStripNumericUpDownInterval = new ToolStripNumericUpDown();
+            this.toolStripNumericUpDownInterval = new Controls.ToolStripNumericUpDown();
             this.toolStripLabelStopping = new System.Windows.Forms.ToolStripLabel();
-            this.toolStrip.SuspendLayout();
+            this.toolStripEx.SuspendLayout();
             this.SuspendLayout();
             // 
             // opf
@@ -168,12 +168,12 @@
             this.rTextBoxOut.TabIndex = 67;
             this.rTextBoxOut.Text = "";
             // 
-            // toolStrip
+            // toolStripEx
             // 
-            this.toolStrip.ClickThrough = true;
-            this.toolStrip.Dock = System.Windows.Forms.DockStyle.None;
-            this.toolStrip.GripStyle = System.Windows.Forms.ToolStripGripStyle.Hidden;
-            this.toolStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.toolStripEx.ClickThrough = true;
+            this.toolStripEx.Dock = System.Windows.Forms.DockStyle.None;
+            this.toolStripEx.GripStyle = System.Windows.Forms.ToolStripGripStyle.Hidden;
+            this.toolStripEx.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.toolStripButtonOpen,
             this.toolStripButtonLoadRecentLog,
             this.toolStripSeparator1,
@@ -183,11 +183,11 @@
             this.toolStripButtonFontSettings,
             this.toolStripDropDownButtonSettings,
             this.toolStripLabelStopping});
-            this.toolStrip.Location = new System.Drawing.Point(0, 0);
-            this.toolStrip.Name = "toolStrip";
-            this.toolStrip.Size = new System.Drawing.Size(159, 25);
-            this.toolStrip.TabIndex = 66;
-            this.toolStrip.Text = "toolStrip1";
+            this.toolStripEx.Location = new System.Drawing.Point(0, 0);
+            this.toolStripEx.Name = "toolStrip";
+            this.toolStripEx.Size = new System.Drawing.Size(159, 25);
+            this.toolStripEx.TabIndex = 66;
+            this.toolStripEx.Text = "toolStrip1";
             // 
             // toolStripButtonOpen
             // 
@@ -346,7 +346,7 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(420, 300);
             this.Controls.Add(this.rTextBoxOut);
-            this.Controls.Add(this.toolStrip);
+            this.Controls.Add(this.toolStripEx);
             this.DataBindings.Add(new System.Windows.Forms.Binding("Location", global::tororo_gui.Properties.Settings.Default, "formTororoLocation", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
             this.DoubleBuffered = true;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
@@ -362,8 +362,8 @@
             this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.formTororo_FormClosed);
             this.DragDrop += new System.Windows.Forms.DragEventHandler(this.formTororoTest_DragDrop);
             this.DragEnter += new System.Windows.Forms.DragEventHandler(this.formTororoTest_DragEnter);
-            this.toolStrip.ResumeLayout(false);
-            this.toolStrip.PerformLayout();
+            this.toolStripEx.ResumeLayout(false);
+            this.toolStripEx.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -396,11 +396,11 @@
         private System.Windows.Forms.ToolStripMenuItem toolStripCheckTP;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator2;
         private System.Windows.Forms.ToolStripMenuItem TipOpacity;
-        private ToolStripNumericUpDown toolStripNumericUpDownOpacity;
+        private Controls.ToolStripNumericUpDown toolStripNumericUpDownOpacity;
         private System.Windows.Forms.ToolStripMenuItem TipInterval;
-        private ToolStripNumericUpDown toolStripNumericUpDownInterval;
+        private Controls.ToolStripNumericUpDown toolStripNumericUpDownInterval;
         private System.Windows.Forms.RichTextBox rTextBoxOut;
-        private ToolStripEx toolStrip;
+        private Controls.ToolStripEx toolStripEx;
         private System.Windows.Forms.ToolStripMenuItem toolStripCheckScroll;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator4;
         private System.Windows.Forms.ToolStripLabel toolStripLabelStopping;
