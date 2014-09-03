@@ -2,24 +2,27 @@
 using System.Windows.Forms;
 using System.Windows.Forms.Design;
 
-[ToolStripItemDesignerAvailability(
- ToolStripItemDesignerAvailability.ToolStrip |
- ToolStripItemDesignerAvailability.StatusStrip |
- ToolStripItemDesignerAvailability.ContextMenuStrip)]
-public class ToolStripNumericUpDown : ToolStripControlHost
+namespace tororo_gui.Controls
 {
-    public ToolStripNumericUpDown()
-        : base(new NumericUpDown())
+    [ToolStripItemDesignerAvailability(
+     ToolStripItemDesignerAvailability.ToolStrip |
+     ToolStripItemDesignerAvailability.StatusStrip |
+     ToolStripItemDesignerAvailability.ContextMenuStrip)]
+    public class ToolStripNumericUpDown : ToolStripControlHost
     {
-        
-    }
-
-    public NumericUpDown NumericUpDownControl
-    {
-        get
+        public ToolStripNumericUpDown()
+            : base(new NumericUpDown())
         {
-            return Control as NumericUpDown;
-        }
-    }
 
+        }
+
+        public NumericUpDown NumericUpDownControl
+        {
+            get
+            {
+                return Control as NumericUpDown;
+            }
+        }
+
+    }
 }

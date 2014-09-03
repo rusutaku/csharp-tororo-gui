@@ -34,6 +34,7 @@
             this.ColumnAttribute = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.ColumnFont = new System.Windows.Forms.DataGridViewButtonColumn();
             this.ColumnColor = new System.Windows.Forms.DataGridViewButtonColumn();
+            this.ColumnCharColor = new System.Windows.Forms.DataGridViewButtonColumn();
             this.ColumnPreview = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.ColumnSetDefault = new System.Windows.Forms.DataGridViewButtonColumn();
             this.buttonOK = new System.Windows.Forms.Button();
@@ -72,11 +73,11 @@
             dataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
             dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
             this.dgv.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
-            this.dgv.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dgv.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.ColumnAttribute,
             this.ColumnFont,
             this.ColumnColor,
+            this.ColumnCharColor,
             this.ColumnPreview,
             this.ColumnSetDefault});
             dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
@@ -100,7 +101,7 @@
             this.dgv.RowHeadersDefaultCellStyle = dataGridViewCellStyle3;
             this.dgv.RowHeadersVisible = false;
             this.dgv.RowTemplate.Height = 21;
-            this.dgv.Size = new System.Drawing.Size(498, 213);
+            this.dgv.Size = new System.Drawing.Size(677, 213);
             this.dgv.TabIndex = 0;
             this.dgv.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgv_CellClick);
             // 
@@ -113,6 +114,7 @@
             // 
             // ColumnFont
             // 
+            this.ColumnFont.FlatStyle = System.Windows.Forms.FlatStyle.System;
             this.ColumnFont.HeaderText = "フォント設定";
             this.ColumnFont.Name = "ColumnFont";
             this.ColumnFont.Width = 70;
@@ -120,9 +122,20 @@
             // ColumnColor
             // 
             this.ColumnColor.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.ColumnHeader;
+            this.ColumnColor.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             this.ColumnColor.HeaderText = "色設定";
+            this.ColumnColor.MinimumWidth = 47;
             this.ColumnColor.Name = "ColumnColor";
             this.ColumnColor.Width = 47;
+            // 
+            // ColumnCharColor
+            // 
+            this.ColumnCharColor.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.ColumnCharColor.HeaderText = "キャラ名色設定";
+            this.ColumnCharColor.Name = "ColumnCharColor";
+            this.ColumnCharColor.Resizable = System.Windows.Forms.DataGridViewTriState.True;
+            this.ColumnCharColor.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
+            this.ColumnCharColor.Width = 110;
             // 
             // ColumnPreview
             // 
@@ -142,7 +155,7 @@
             // buttonOK
             // 
             this.buttonOK.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.buttonOK.Location = new System.Drawing.Point(232, 279);
+            this.buttonOK.Location = new System.Drawing.Point(410, 279);
             this.buttonOK.Name = "buttonOK";
             this.buttonOK.Size = new System.Drawing.Size(75, 23);
             this.buttonOK.TabIndex = 1;
@@ -153,7 +166,7 @@
             // buttonApply
             // 
             this.buttonApply.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.buttonApply.Location = new System.Drawing.Point(413, 279);
+            this.buttonApply.Location = new System.Drawing.Point(591, 279);
             this.buttonApply.Name = "buttonApply";
             this.buttonApply.Size = new System.Drawing.Size(75, 23);
             this.buttonApply.TabIndex = 2;
@@ -164,7 +177,7 @@
             // buttonCancel
             // 
             this.buttonCancel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.buttonCancel.Location = new System.Drawing.Point(322, 279);
+            this.buttonCancel.Location = new System.Drawing.Point(500, 279);
             this.buttonCancel.Name = "buttonCancel";
             this.buttonCancel.Size = new System.Drawing.Size(75, 23);
             this.buttonCancel.TabIndex = 3;
@@ -267,7 +280,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(500, 314);
+            this.ClientSize = new System.Drawing.Size(678, 314);
             this.Controls.Add(this.label5);
             this.Controls.Add(this.buttonDefaultCharColor);
             this.Controls.Add(this.label4);
@@ -288,7 +301,7 @@
             this.MinimizeBox = false;
             this.Name = "formFontSettings";
             this.SizeGripStyle = System.Windows.Forms.SizeGripStyle.Show;
-            this.Text = "FontSettings";
+            this.Text = "フォントと色の設定";
             this.TopMost = true;
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.formFontSettings_FormClosing);
             this.Shown += new System.EventHandler(this.formFontSettings_Shown);
@@ -319,6 +332,7 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn ColumnAttribute;
         private System.Windows.Forms.DataGridViewButtonColumn ColumnFont;
         private System.Windows.Forms.DataGridViewButtonColumn ColumnColor;
+        private System.Windows.Forms.DataGridViewButtonColumn ColumnCharColor;
         private System.Windows.Forms.DataGridViewTextBoxColumn ColumnPreview;
         private System.Windows.Forms.DataGridViewButtonColumn ColumnSetDefault;
 

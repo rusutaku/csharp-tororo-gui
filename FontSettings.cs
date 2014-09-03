@@ -112,19 +112,33 @@ namespace tororo_gui
             if ((Color)(obj = GetColor(attr)) != Color.Empty)
             {
                 color = (Color)obj;
+                row.Cells[dgv.Columns.IndexOf(ColumnColor)].Style.BackColor = color;
+                row.Cells[dgv.Columns.IndexOf(ColumnColor)].Value = SET;
                 // 色だけ設定がある場合
                 if (row.Cells[dgv.Columns.IndexOf(ColumnFont)].Value == null)
                 {
                     row.Cells[dgv.Columns.IndexOf(ColumnPreview)].Value = buttonDefaultFont.Text;
                     row.Cells[dgv.Columns.IndexOf(ColumnPreview)].Style.Font = buttonDefaultFont.Font;
                 }
-                row.Cells[dgv.Columns.IndexOf(ColumnColor)].Value = SET;
+
             }
             else
             {
                 color = buttonDefaultFontColor.BackColor;
             }
             row.Cells[dgv.Columns.IndexOf(ColumnPreview)].Style.ForeColor = color;
+            if ((Color)(obj = GetColor(attr + "_char")) != Color.Empty)
+            {
+                color = (Color)obj;
+                row.Cells[dgv.Columns.IndexOf(ColumnCharColor)].Style.BackColor = color;
+                row.Cells[dgv.Columns.IndexOf(ColumnCharColor)].Value = SET;
+                //色だけ設定がある場合
+                if (row.Cells[dgv.Columns.IndexOf(ColumnFont)].Value == null)
+                {
+                    row.Cells[dgv.Columns.IndexOf(ColumnPreview)].Value = buttonDefaultFont.Text;
+                    row.Cells[dgv.Columns.IndexOf(ColumnPreview)].Style.Font = buttonDefaultFont.Font;
+                }
+            }
         }
 
 
@@ -143,11 +157,19 @@ namespace tororo_gui
                 }
                 if ((row.Cells[dgv.Columns.IndexOf(ColumnColor)].Value != null))
                 {
-                    SetColor(attr, row.Cells[dgv.Columns.IndexOf(ColumnPreview)].Style.ForeColor);
+                    SetColor(attr, row.Cells[dgv.Columns.IndexOf(ColumnColor)].Style.BackColor);
                 }
                 else
                 {
                     UnsetColor(attr);
+                }
+                if ((row.Cells[dgv.Columns.IndexOf(ColumnCharColor)].Value != null))
+                {
+                    SetColor(attr + "_char", row.Cells[dgv.Columns.IndexOf(ColumnCharColor)].Style.BackColor);
+                }
+                else
+                {
+                    UnsetColor(attr + "_char");
                 }
             }
         }
@@ -238,8 +260,7 @@ namespace tororo_gui
         {
             _tc = tc;
         }
-
-        // 
+        
         private void dgv_CellClick(object sender, DataGridViewCellEventArgs e)
         {
             if (e.RowIndex == -1) return; // コラムヘッダのクリックは無視する
@@ -262,6 +283,7 @@ namespace tororo_gui
                 if (OpenColorDialog(ref color))
                 {
                     dgv[dgv.Columns.IndexOf(ColumnPreview), e.RowIndex].Style.ForeColor = color;
+                    dgv[e.ColumnIndex, e.RowIndex].Style.BackColor = color;
                     dgv[e.ColumnIndex, e.RowIndex].Value = SET;
                     dgv[e.ColumnIndex, e.RowIndex].ToolTipText = color.ToString();
                     // 色だけ設定した場合
@@ -271,6 +293,27 @@ namespace tororo_gui
                         dgv[dgv.Columns.IndexOf(ColumnPreview), e.RowIndex].Style.Font = buttonDefaultFont.Font;
                     }
                 }
+                // フォーカスが邪魔なので先頭に飛ばす
+                dgv.CurrentCell = dgv[0, e.RowIndex];
+            }
+            else if (e.ColumnIndex == dgv.Columns.IndexOf(ColumnCharColor))
+            {
+                Color char_color = dgv[dgv.Columns.IndexOf(ColumnPreview), e.RowIndex].Style.ForeColor;
+                if (OpenColorDialog(ref char_color))
+                {
+                    dgv[e.ColumnIndex, e.RowIndex].Style.BackColor = char_color;
+                    dgv[e.ColumnIndex, e.RowIndex].Value = SET;
+                    dgv[e.ColumnIndex, e.RowIndex].ToolTipText = char_color.ToString();
+                    // キャラ名の色だけ設定した場合
+                    if (dgv[dgv.Columns.IndexOf(ColumnPreview), e.RowIndex].Style.Font == null)
+                    {
+                        dgv[dgv.Columns.IndexOf(ColumnPreview), e.RowIndex].Value = buttonDefaultFont.Text;
+                        dgv[dgv.Columns.IndexOf(ColumnPreview), e.RowIndex].Style.Font = buttonDefaultFont.Font;
+                    }
+                }
+                // フォーカスが邪魔なので先頭に飛ばす
+                dgv.CurrentCell = dgv[0, e.RowIndex];
+
             }
             // 標準に戻す
             else if (e.ColumnIndex == dgv.Columns.IndexOf(ColumnSetDefault))
@@ -279,7 +322,10 @@ namespace tororo_gui
                 dgv[dgv.Columns.IndexOf(ColumnPreview), e.RowIndex].Style.Font = null;
                 dgv[dgv.Columns.IndexOf(ColumnPreview), e.RowIndex].Style.ForeColor = Color.Empty;
                 dgv[dgv.Columns.IndexOf(ColumnFont), e.RowIndex].Value =
-                dgv[dgv.Columns.IndexOf(ColumnColor), e.RowIndex].Value = null;
+                dgv[dgv.Columns.IndexOf(ColumnColor), e.RowIndex].Value =
+                dgv[dgv.Columns.IndexOf(ColumnCharColor), e.RowIndex].Value = null;
+                dgv[dgv.Columns.IndexOf(ColumnColor), e.RowIndex].Style.BackColor =
+                dgv[dgv.Columns.IndexOf(ColumnCharColor), e.RowIndex].Style.BackColor = Color.Empty;
                 _changed = true;
             }
         }

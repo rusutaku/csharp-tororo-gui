@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Windows.Forms;
 
-namespace tororo_gui
+namespace tororo_gui.Controls
 {
     /// <summary>
     /// This class adds on to the functionality provided in System.Windows.Forms.ToolStrip.
